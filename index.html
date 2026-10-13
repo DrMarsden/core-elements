@@ -1,0 +1,880 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Core Elements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: a reference-room workbench. Source facsimile on the left, the MLA template of core elements and the catalog slip on the right. */
+:root{
+  --bg:#e4e8e3; --ink:#1c2320; --muted:#56635b; --rule:#c3cbc4; --card:#f6f8f4; --well:#edf0ec;
+  --accent:#2f5d50; --accent-ink:#ffffff; --stamp:#b0281d; --ok:#2c6a3a; --hl:#f3dc8a;
+  --leaf:#fbf7ec; --leaf-ink:#2a2520; --leaf-mark:#2f5d50; --leaf-used:#8a9a8f;
+  --f-display:"Libre Caslon Display","Libre Caslon Text",Georgia,serif;
+  --f-book:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+  --f-ui:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-type:"Courier Prime","Courier New",Courier,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#131916; --ink:#e2e8e2; --muted:#9eaaa2; --rule:#34413a; --card:#1b231f; --well:#202a25;
+  --accent:#86b9a6; --accent-ink:#0f1a15; --stamp:#ec7466; --ok:#7cc68c; --hl:#6b5a1c;
+  --leaf:#ece5d3; --leaf-ink:#2a2520; --leaf-mark:#2f5d50; --leaf-used:#8a9a8f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#131916; --ink:#e2e8e2; --muted:#9eaaa2; --rule:#34413a; --card:#1b231f; --well:#202a25;
+  --accent:#86b9a6; --accent-ink:#0f1a15; --stamp:#ec7466; --ok:#7cc68c; --hl:#6b5a1c;
+  --leaf:#ece5d3; --leaf-ink:#2a2520; --leaf-mark:#2f5d50; --leaf-used:#8a9a8f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:0 16px 96px}
+.wrap{max-width:1280px;margin:0 auto;padding-block:20px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+h1{font-family:var(--f-display);font-weight:400;font-size:2.4rem;line-height:1;margin:0;letter-spacing:.01em}
+.sub{color:var(--muted);font-size:.92rem;margin:4px 0 0}
+.views{display:flex;gap:4px}
+.views button{font:inherit;font-size:.9rem;border:1px solid var(--rule);background:transparent;color:var(--ink);padding:6px 14px;border-radius:3px;cursor:pointer}
+.views button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.strip{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 18px}
+.strip button{font:inherit;min-width:44px;height:44px;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:3px;cursor:pointer;font-variant-numeric:tabular-nums;position:relative}
+.strip button[aria-current="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.strip button.done::after{content:"";position:absolute;right:4px;top:4px;width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+.label{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700}
+.task h2{font-family:var(--f-book);font-weight:400;font-size:1.45rem;margin:2px 0 6px;text-wrap:balance}
+.desk{border-left:3px solid var(--accent);padding:6px 0 6px 12px;margin:10px 0 16px;font-family:var(--f-book);font-style:italic;color:var(--ink)}
+.desk b{font-style:normal;font-family:var(--f-ui);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:2px}
+.bench{display:flex;flex-direction:column;gap:16px}
+.leaf{background:var(--leaf);color:var(--leaf-ink);font-family:var(--f-book);padding:28px 26px;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.08),0 6px 18px -8px rgba(0,0,0,.35);position:relative;overflow-wrap:anywhere}
+.leaf .tag{position:absolute;top:8px;right:10px;font-family:var(--f-ui);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:#7b7466}
+.tp{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;min-height:340px;justify-content:space-between}
+.tp .big{font-size:1.7rem;letter-spacing:.08em;line-height:1.2}
+.tp .caps{letter-spacing:.14em;font-size:.95rem}
+.tp .ital{font-style:italic;font-size:1.1rem}
+.tp hr{width:40%;border:0;border-top:1px solid #8c8473;margin:0}
+.verso{font-size:.84rem;line-height:1.6;display:flex;flex-direction:column;gap:8px}
+.jpage .run{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;letter-spacing:.08em;border-bottom:1px solid #b8ae98;padding-bottom:6px;margin-bottom:22px;flex-wrap:wrap}
+.jpage h3{font-weight:400;font-size:1.45rem;text-align:center;margin:0 0 10px;line-height:1.25}
+.jpage .by{text-align:center;letter-spacing:.14em;font-size:.9rem;margin-bottom:18px}
+.jpage p{font-size:.86rem;line-height:1.6;margin:0 0 10px;text-align:justify;hyphens:auto}
+.jpage .foot{font-size:.72rem;border-top:1px solid #b8ae98;padding-top:6px;margin-top:16px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.poem{font-size:.98rem;line-height:1.7;padding-left:12%}
+.folio{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:14px}
+.web{padding:0;overflow:hidden;font-family:var(--f-ui)}
+.web .bar{display:flex;align-items:center;gap:8px;background:#d9d3c3;padding:8px 10px;font-size:.78rem}
+.web .dots{display:flex;gap:4px}.web .dots i{width:9px;height:9px;border-radius:50%;background:#a49c8a;display:block}
+.web .url{flex:1;min-width:0;background:#f4f0e4;border-radius:12px;padding:3px 10px;font-family:var(--f-type);overflow-wrap:anywhere}
+.web .site{padding:14px 20px;border-bottom:3px double #b8ae98;font-family:var(--f-book);font-size:1.3rem;letter-spacing:.06em}
+.web .nav{padding:6px 20px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#6d6656;border-bottom:1px solid #d6cfbf}
+.web article{padding:18px 20px}
+.web h3{font-family:var(--f-book);font-weight:400;font-size:1.5rem;margin:0 0 8px;line-height:1.2}
+.web .meta{font-size:.85rem;color:#5d574b;margin-bottom:12px}
+.web p{font-family:var(--f-book);font-size:.9rem;line-height:1.6;margin:0 0 10px}
+.web footer{padding:10px 20px;font-size:.75rem;color:#6d6656;border-top:1px solid #d6cfbf}
+.note{position:absolute;right:14px;bottom:52px;transform:rotate(2.5deg);background:#f6e58f;color:#3a3420;font-family:var(--f-type);font-size:.8rem;padding:8px 10px;box-shadow:0 3px 8px -3px rgba(0,0,0,.4);max-width:150px}
+.db{font-family:var(--f-ui);padding:0;overflow:hidden}
+.db .dbh{background:#3c4a44;color:#f2efe6;padding:10px 16px;font-weight:700;letter-spacing:.2em}
+.db .rec{padding:16px}
+.db h3{font-family:var(--f-book);font-weight:400;font-size:1.3rem;margin:0 0 4px}
+.db dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:.84rem;margin:12px 0 0}
+.db dt{color:#6d6656}.db dd{margin:0;overflow-wrap:anywhere}
+.film{background:#101010;color:#ece6d8;text-align:center;min-height:320px;display:flex;flex-direction:column;justify-content:center;gap:16px;font-family:var(--f-book)}
+.film .tag{color:#8d877a}
+.film .big{font-family:var(--f-display);font-size:2rem;letter-spacing:.12em}
+.film .sm{letter-spacing:.2em;font-size:.82rem;color:#bdb6a6}
+.s{cursor:pointer;border-bottom:2px dotted var(--leaf-mark);border-radius:2px;transition:background .15s}
+.s:hover,.s:focus-visible{background:rgba(47,93,80,.14);outline:none}
+.film .s{border-bottom-color:#8fc3ae}
+.film .s:hover,.film .s:focus-visible{background:rgba(143,195,174,.2)}
+.s.held{background:#f3dc8a;color:#2a2520;box-shadow:0 0 0 2px #f3dc8a}
+.s.used{border-bottom-style:solid;border-bottom-color:var(--leaf-used)}
+.s.used::after{content:"✓";font-family:var(--f-ui);font-size:.65em;vertical-align:super;margin-left:2px;color:var(--leaf-used)}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:16px}
+.stick{display:flex;flex-direction:column;gap:14px}
+.group h4{margin:0 0 6px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.slots{display:flex;flex-direction:column;gap:4px}
+.slot{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:8px;align-items:stretch}
+@media (max-width:480px){.slot{grid-template-columns:minmax(0,1fr)}}
+.slot .nm{font-size:.82rem;color:var(--muted);padding-top:9px;display:flex;justify-content:space-between;gap:4px}
+.slot .nm em{font-style:normal;font-family:var(--f-type);font-weight:700;color:var(--ink)}
+.cell{font:inherit;text-align:left;min-height:42px;width:100%;border:1px dashed var(--rule);background:var(--well);color:var(--ink);border-radius:3px;padding:8px 10px;cursor:pointer;font-family:var(--f-type);font-size:.92rem;overflow-wrap:anywhere}
+.cell.filled{border-style:solid;border-color:var(--accent);background:var(--card)}
+.cell.target{border-color:var(--accent);border-style:dashed;background:color-mix(in srgb,var(--accent) 10%,var(--well))}
+.cell.bad{border-color:var(--stamp);box-shadow:inset 3px 0 0 var(--stamp)}
+.cell.good{box-shadow:inset 3px 0 0 var(--ok)}
+.cell .ph{color:var(--muted);font-family:var(--f-ui);font-size:.82rem}
+.opts{grid-column:1/-1;border:1px solid var(--rule);border-radius:3px;padding:10px;background:var(--well);display:flex;flex-direction:column;gap:8px}
+.opts .row{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-family:var(--f-type);font-size:.86rem;border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:6px 9px;border-radius:3px;cursor:pointer;text-align:left}
+.chip[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.chip.plain{font-family:var(--f-ui)}
+.linkbtn{font:inherit;font-size:.82rem;background:none;border:0;color:var(--accent);cursor:pointer;padding:4px 0;text-decoration:underline}
+.slip{background:var(--leaf);color:var(--leaf-ink);font-family:var(--f-type);font-size:1rem;line-height:1.7;padding:18px 18px 18px 18px;border-radius:2px;position:relative;box-shadow:0 1px 0 rgba(0,0,0,.08);background-image:linear-gradient(to bottom,transparent 34px,#d77f72 34px,#d77f72 35px,transparent 35px)}
+.slip .hang{padding-left:2.2em;text-indent:-2.2em;margin-top:14px;min-height:1.7em;overflow-wrap:anywhere}
+.slip .empty{color:#8a8272;font-style:italic}
+.slip .hd{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#7b7466;font-family:var(--f-ui)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-weight:700;border:0;background:var(--accent);color:var(--accent-ink);padding:10px 18px;border-radius:3px;cursor:pointer;min-height:44px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule);font-weight:400}
+.btn:focus-visible,.cell:focus-visible,.chip:focus-visible,.strip button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.proof{border-top:2px solid var(--ink);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.stampline{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.stamp{font-family:var(--f-type);font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:2px solid currentColor;padding:3px 10px;transform:rotate(-2deg);display:inline-block}
+.stamp.clean{color:var(--ok)}.stamp.dirty{color:var(--stamp)}
+.corr{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.corr li{border-left:3px solid var(--stamp);padding:2px 0 2px 10px;font-size:.92rem}
+.corr li b{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--stamp)}
+.coll{display:flex;flex-direction:column;gap:6px;font-family:var(--f-type);font-size:.95rem}
+.coll .w{display:grid;grid-template-columns:4.5rem minmax(0,1fr);gap:8px}
+.coll .w span:first-child{font-family:var(--f-ui);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.coll .x{color:var(--stamp);text-decoration:line-through;text-decoration-thickness:2px;background:color-mix(in srgb,var(--stamp) 12%,transparent)}
+.coll .a{color:var(--ok);text-decoration:underline;text-decoration-thickness:2px;background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.coll div div{overflow-wrap:anywhere}
+.hand{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;z-index:5;font-size:.95rem}
+.hand q{font-family:var(--f-type);quotes:none;background:var(--hl);color:var(--ink);padding:2px 8px;border-radius:2px}
+.hand button{font:inherit;background:transparent;color:var(--bg);border:1px solid currentColor;border-radius:3px;padding:4px 12px;cursor:pointer}
+.keys{display:flex;flex-direction:column;gap:18px;max-width:900px}
+.keys article{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:16px 18px}
+.keys h3{font-family:var(--f-book);font-weight:400;font-size:1.2rem;margin:0 0 8px}
+.keys .ent{font-family:var(--f-book);padding-left:2em;text-indent:-2em;margin:4px 0}
+.keys .flag{border-left:3px solid var(--hl);padding:4px 0 4px 10px;margin-top:10px;font-size:.9rem}
+.prose{max-width:68ch;font-size:.95rem}
+.prose a{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style>
+.paperwrap{background:var(--well);border:1px solid var(--rule);border-radius:3px;padding:18px;overflow-x:auto}
+.paper{background:#ffffff;color:#111111;font-family:"Times New Roman",Times,"Libre Caslon Text",serif;font-size:15px;padding:44px 48px 56px;box-shadow:0 6px 18px -8px rgba(0,0,0,.35);position:relative;min-height:520px}
+.paper .rh{position:absolute;top:18px;font-size:14px}
+.paper .rh.r{right:48px}.paper .rh.l{left:48px}
+.paper h5{font-size:15px;font-weight:400;margin:0 0 4px}
+.paper .entry{margin:0;overflow-wrap:anywhere}
+.ctl{display:flex;flex-direction:column;gap:14px}
+.ctl .row{display:flex;flex-wrap:wrap;gap:6px}
+.order{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.order li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center;background:var(--well);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;font-size:.88rem}
+.order li span{overflow-wrap:anywhere}
+.order button{font:inherit;width:40px;height:36px;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:3px;cursor:pointer}
+.order button:disabled{opacity:.35;cursor:default}
+.cell.badp{border-color:var(--stamp);box-shadow:inset 3px 0 0 var(--stamp)}
+.yt{background:#f9f9f9;font-family:var(--f-ui);padding:0;overflow:hidden;color:#1a1a1a}
+.yt .top{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid #ddd}
+.yt .logo{font-weight:700;letter-spacing:-.02em;font-size:1.05rem}
+.yt .logo b{background:#cc1f1a;color:#fff;border-radius:5px;padding:0 6px;margin-right:3px}
+.yt .player{background:#0d0d0d;color:#e9e3d4;text-align:center;padding:34px 12px;font-family:var(--f-book);display:flex;flex-direction:column;gap:10px}
+.yt .player .big{font-family:var(--f-display);font-size:1.6rem;letter-spacing:.14em}
+.yt .player .sm{font-size:.75rem;letter-spacing:.22em;color:#bdb6a6}
+.yt .player .s{border-bottom-color:#8fc3ae}
+.yt .vt{font-size:1.05rem;font-weight:700;padding:12px 14px 4px;line-height:1.3}
+.yt .ch{display:flex;gap:10px;align-items:center;padding:6px 14px;font-size:.85rem}
+.yt .ch i{width:30px;height:30px;border-radius:50%;background:#7a6f5a;display:block;flex:none}
+.yt .desc{margin:8px 14px 14px;background:#ececec;border-radius:10px;padding:10px 12px;font-size:.84rem;line-height:1.5}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Core Elements</h1>
+      <p class="sub">Build an MLA 9 works-cited entry from the source in front of you, one core element at a time. Vibe-coded by Steve Marsden and Claude.</p>
+    </div>
+    <div class="views" role="group" aria-label="View">
+      <button id="vBench" aria-pressed="true">Practice</button>
+      <button id="vSlip" aria-pressed="false">Completion slip</button>
+    </div>
+  </header>
+  <div id="app"></div>
+</div>
+<div class="hand" id="hand" hidden></div>
+
+<script>
+/* ---------- The template: MLA 9 core elements ---------- */
+const CEL=['ti','co','ve','nu','pu','da','pg','lo'];
+const CNAME={ti:'Title of container',co:'Other contributors',ve:'Version',nu:'Number',pu:'Publisher',da:'Publication date',pg:'Location: pages',lo:'Location: DOI or URL'};
+const NAME={au:'Author',ti:'Title of source',od:'Original publication date',ac:'Date of access'};
+CEL.forEach(e=>{NAME['c1.'+e]=CNAME[e];NAME['c2.'+e]=CNAME[e]+' (2nd container)'});
+const PATHS=['au','ti','od',...CEL.map(e=>'c1.'+e),...CEL.map(e=>'c2.'+e),'ac'];
+const TITLED=new Set(['ti','c1.ti','c2.ti']);
+const WHY={au:'Who is responsible for the work? Check the title page or byline.',ti:'The title of the thing you are citing.',od:'',
+ 'c1.ti':'The larger whole that holds your source.','c1.co':'Someone besides the author whose role matters to this source.','c1.ve':'Which edition or version this is.',
+ 'c1.nu':'The volume and issue numbers.','c1.pu':'Who published it.','c1.da':'When it was published.','c1.pg':'Where the source sits inside its container: the page range.',
+ 'c1.lo':'Where a reader finds it online: the DOI or URL.','c2.ti':'The database or platform where you found the source.','c2.co':'Who put it on that platform.','c2.da':'When it went up on that platform.','c2.lo':'The address of the source on that platform.',ac:''};
+
+/* ---------- The corpus. Every source is invented for practice; the keys follow the Purdue OWL and the MLA Style Center.
+   Sorts: forms[0] is how the piece appears on the source. [text, note] attaches a correction note to a wrong form.
+   In form text, _underscores_ mark a title inside a title: it takes the opposite of the surrounding style (italic in roman, roman in italic).
+   Key slots: [sortId, acceptable form index or [indices], title style ('i' italics, 'q' quotation marks), optional?] ---------- */
+const CAPS='Write it in normal capitals, not the capitals of the source’s design.';
+const INV='Invert the first author’s name: last name, comma, first names.';
+const SUBT='Include the subtitle, joined to the title with a colon.';
+const NOPROTO='Drop the https:// from a URL. Only a DOI link keeps it.';
+const EX=[
+{name:'A book with one author',task:'Cite the whole book.',
+ desk:'MLA doesn’t copy a title page’s design. It normalizes it: normal capitals, a colon before the subtitle, its own punctuation between elements. You supply that punctuation, a period or a comma after each element.',
+ leaves:[
+ {k:'tp',tag:'Title page',h:`<div><div class="big"><span class="s" data-s="ti">THE LANTERN<br>AND THE LOOM</span></div></div><hr><div class="ital"><span class="s" data-s="ti">Weaving Women of the Piney Woods</span></div><div class="caps"><span class="s" data-s="au">MARTHA ELLERY VOSS</span></div><div><div class="caps"><span class="s" data-s="pu">SABINE RIVER UNIVERSITY PRESS</span></div><div style="font-size:.85rem;margin-top:4px"><span class="s" data-s="ci">Nacogdoches, Texas</span></div></div>`},
+ {k:'verso',tag:'Copyright page',h:`<div><span class="s" data-s="da">Copyright © 2019</span> by Martha Ellery Voss</div><div><span class="s" data-s="rr">All rights reserved</span></div><div>Published by Sabine River University Press, Nacogdoches, Texas</div><div><span class="s" data-s="fp">First printing, 2019</span></div><div><span class="s" data-s="pi">Printed in the United States of America</span></div>`}],
+ sorts:{
+  au:{f:['MARTHA ELLERY VOSS',['Martha Ellery Voss',INV],'Voss, Martha Ellery',['Voss, M. E.','Give the name as the work presents it. The title page spells it out.']]},
+  ti:{f:[['THE LANTERN AND THE LOOM / Weaving Women of the Piney Woods','Use title case, and join title and subtitle with a colon.'],['The Lantern and the Loom',SUBT],'The Lantern and the Loom: Weaving Women of the Piney Woods']},
+  pu:{f:[['SABINE RIVER UNIVERSITY PRESS','Normal capitals, and shorten University Press to UP.'],['Sabine River University Press','MLA shortens University Press to UP.'],'Sabine River UP',['Sabine River U P','UP is written closed up, with no space.']]},
+  da:{f:[['Copyright © 2019','Give just the year.'],'2019']},
+  ci:{f:['Nacogdoches, Texas'],no:'MLA 9 leaves out the city of publication for books published after 1900.'},
+  rr:{f:['All rights reserved'],no:'Legal boilerplate. It never goes in a citation.'},
+  fp:{f:['First printing, 2019'],no:'A printing is the same text run off the press again. It is not an edition, so it does not go in Version.'},
+  pi:{f:['Printed in the United States of America'],no:'Where the book was printed does not help a reader find it.'}},
+ keys:[{au:['au',2],ti:['ti',2,'i'],'c1.pu':['pu',2],'c1.da':['da',1]}]},
+
+{name:'Two authors, a later edition',task:'Cite the edition in front of you.',
+ desk:'Two authors means one of them gets turned around and one does not. And look at which edition you are holding.',
+ leaves:[
+ {k:'tp',tag:'Title page',h:`<div class="big"><span class="s" data-s="ti">FIELD NOTES ON<br>THE SOUTHERN GOTHIC</span></div><div class="ital"><span class="s" data-s="ve">Third Edition</span></div><div class="caps"><span class="s" data-s="au">DELPHINE OKAFOR<br><span style="font-size:.8em;letter-spacing:.05em">and</span><br>RUBEN CASTAÑEDA</span></div><div><div class="caps"><span class="s" data-s="pu">BLUEBONNET PRESS, INC.</span></div><div style="font-size:.85rem;margin-top:4px"><span class="s" data-s="ci">Austin</span></div></div>`},
+ {k:'verso',tag:'Copyright page',h:`<div><span class="s" data-s="da">© 2006, 2014, 2022</span> by Delphine Okafor and Ruben Castañeda</div><div>Third edition published 2022 by Bluebonnet Press, Inc.</div><div><span class="s" data-s="ix">Index prepared by Wendell Ames</span></div>`}],
+ sorts:{
+  au:{f:[['DELPHINE OKAFOR and RUBEN CASTAÑEDA','Normal capitals, and invert only the first author’s name.'],['Delphine Okafor and Ruben Castañeda','Invert only the first author’s name.'],['Okafor, Delphine, and Castañeda, Ruben','Only the first author is inverted. The second keeps normal order.'],['Okafor, Delphine and Ruben Castañeda','A comma comes before “and”: Okafor, Delphine, and …'],'Okafor, Delphine, and Ruben Castañeda',['Okafor, Delphine, et al.','Et al. is for three or more authors. With two, name both.']]},
+  ti:{f:[['FIELD NOTES ON THE SOUTHERN GOTHIC',CAPS],['Field Notes On The Southern Gothic','In title case, prepositions and articles such as “on” and “the” stay lowercase unless they come first.'],'Field Notes on the Southern Gothic']},
+  ve:{f:[['Third Edition','Abbreviate: a numeral plus “ed.”'],['3rd edition','Abbreviate “edition” to “ed.”'],'3rd ed.']},
+  pu:{f:[['BLUEBONNET PRESS, INC.','Normal capitals, and drop business words like Inc.'],['Bluebonnet Press, Inc.','Drop business words like Inc., Co., and Ltd.'],'Bluebonnet Press',['Bluebonnet P','P for Press is only for university presses.']]},
+  da:{f:[['2006, 2014, 2022','Give one date: the year of the edition you used.'],['2006','2006 is the first edition. You are citing the third.'],'2022']},
+  ci:{f:['Austin'],no:'MLA 9 leaves out the city of publication for books published after 1900.'},
+  ix:{f:['Index prepared by Wendell Ames'],no:'Name other contributors only when their work matters to how you use the source. The indexer does not.'}},
+ keys:[{au:['au',4],ti:['ti',2,'i'],'c1.ve':['ve',2],'c1.pu':['pu',2],'c1.da':['da',2]}]},
+
+{name:'Three or more authors',task:'Cite the book for its argument.',
+ desk:'Three names on the title page. Only one of them goes in the entry. Watch the period at the end of “al.”',
+ leaves:[
+ {k:'tp',tag:'Title page',h:`<div class="big"><span class="s" data-s="ti">TEACHING<br>THE UNTEACHABLE</span></div><div class="ital"><span class="s" data-s="ti">Horror in the Composition Classroom</span></div><div class="caps" style="line-height:1.9"><span class="s" data-s="au">LORNA PIKE · THEO ABERNATHY · JUN WATANABE</span></div><div class="caps"><span class="s" data-s="pu">UNIVERSITY OF CADDO LAKE PRESS</span></div>`},
+ {k:'verso',tag:'Copyright page',h:`<div><span class="s" data-s="da">Copyright © 2021</span> University of Caddo Lake Press</div><div><span class="s" data-s="cv">Cover design by Esme Varga</span></div><div>Library of Congress Cataloging-in-Publication Data is available.</div>`}],
+ sorts:{
+  au:{f:[['LORNA PIKE · THEO ABERNATHY · JUN WATANABE','With three or more authors, give the first, inverted, then et al.'],['Pike, Lorna, Theo Abernathy, and Jun Watanabe','With three or more authors, give the first one and et al.'],['Pike, Lorna et al.','A comma comes before et al.'],['Pike, Lorna, et. al.','No period after “et”. It is a whole Latin word; only “al.” is abbreviated.'],'Pike, Lorna, et al.']},
+  ti:{f:[['TEACHING THE UNTEACHABLE / Horror in the Composition Classroom','Use title case, and join title and subtitle with a colon.'],['Teaching the Unteachable',SUBT],'Teaching the Unteachable: Horror in the Composition Classroom']},
+  pu:{f:[['UNIVERSITY OF CADDO LAKE PRESS','Normal capitals, and shorten: University becomes U, Press becomes P.'],['University of Caddo Lake Press','Shorten: University becomes U, Press becomes P.'],['Caddo Lake UP','Keep the press’s own word order: University of Caddo Lake Press becomes U of Caddo Lake P.'],['U of Caddo Lake Press','Press becomes P too.'],'U of Caddo Lake P']},
+  da:{f:[['Copyright © 2021','Give just the year.'],'2021']},
+  cv:{f:['Cover design by Esme Varga'],no:'Name other contributors only when they matter to how you use the source. You are citing the argument, not the cover.'}},
+ keys:[{au:['au',4],ti:['ti',2,'i'],'c1.pu':['pu',4],'c1.da':['da',1]}]},
+
+{name:'A poem in an anthology',task:'Cite the poem, as you read it in this anthology.',
+ desk:'The poem is your source. The anthology is the container that holds it. Each gets its own kind of title, and a comma goes inside the closing quotation mark.',
+ leaves:[
+ {k:'tp',tag:'Anthology title page',h:`<div class="big"><span class="s" data-s="ct">THE HOLLOW REED</span></div><div class="ital"><span class="s" data-s="ct">An Anthology of Nineteenth-Century American Verse</span></div><div class="caps"><span class="s" data-s="ed">Edited by CONSTANCE WHITLOW</span></div><div class="ital" style="font-size:.95rem"><span class="s" data-s="in">With an Introduction by MARCUS HALE</span></div><div class="caps"><span class="s" data-s="pu">GALLOWS HILL PRESS</span></div>`},
+ {k:'verso',tag:'Copyright page',h:`<div>Selection and notes © <span class="s" data-s="da">2017</span> <span class="s" data-s="pu">Gallows Hill Press LLC</span></div><div>All poems in this volume are in the public domain.</div>`},
+ {k:'pg',tag:'Pages 88–89',h:`<div class="folio"><span class="s" data-s="pg">88</span><span style="letter-spacing:.1em">THE HOLLOW REED</span></div><div style="text-align:center;letter-spacing:.14em;margin-bottom:4px"><span class="s" data-s="ti">THE CITY IN THE SEA</span></div><div style="text-align:center;font-style:italic;margin-bottom:14px;font-size:.9rem"><span class="s" data-s="au">Edgar Allan Poe</span></div><div class="poem">Lo! Death has reared himself a throne<br>In a strange city lying alone<br>Far down within the dim West,<br>Where the good and the bad and the worst and the best<br>Have gone to their eternal rest.<br>…</div><div class="folio" style="margin:16px 0 0;justify-content:flex-end"><span>…continued on <span class="s" data-s="pg">89</span></span></div>`}],
+ sorts:{
+  au:{f:[['Edgar Allan Poe','Invert the author’s name: last name, comma, first names.'],'Poe, Edgar Allan',['Poe, E. A.','Give the name as the work presents it.']]},
+  ti:{f:[['THE CITY IN THE SEA',CAPS],'The City in the Sea']},
+  ct:{f:[['THE HOLLOW REED: AN ANTHOLOGY OF NINETEENTH-CENTURY AMERICAN VERSE',CAPS],['The Hollow Reed',SUBT],'The Hollow Reed: An Anthology of Nineteenth-Century American Verse']},
+  ed:{f:[['Edited by CONSTANCE WHITLOW','Use the role phrase in lowercase, edited by, with the name in normal capitals. Whether “edited” takes a capital depends on the punctuation before it.'],['Constance Whitlow, editor','In this position the role comes first: edited by Constance Whitlow. “Name, editor” is for an editor who stands in the author element.'],['ed. Constance Whitlow','Spell the role out: edited by.'],'edited by Constance Whitlow']},
+  in:{f:['With an Introduction by Marcus Hale'],no:'You are citing the poem, not the introduction. Hale’s role does not help a reader find it.'},
+  pu:{f:[['GALLOWS HILL PRESS',CAPS],['Gallows Hill Press LLC','Drop business words like LLC, Inc., and Co.'],'Gallows Hill Press']},
+  da:{f:['2017']},
+  pg:{f:[['88-89','Page numbers take p. (one page) or pp. (more than one).'],['p. 88','The poem runs onto page 89. Give the whole range.'],'pp. 88-89']}},
+ keys:[{au:['au',1],ti:['ti',1,'q'],'c1.ti':['ct',2,'i'],'c1.co':['ed',3],'c1.pu':['pu',2],'c1.da':['da',0],'c1.pg':['pg',2]}],
+ why:{'c1.ti':'What larger book holds the poem?','c1.co':'Who put the anthology together?','c1.pg':'Which pages does the poem occupy?'}},
+
+{name:'A translated novel',task:'Cite the English translation you read.',
+ desk:'Someone carried this book over from German. That person belongs in the entry. The original date may go in too, if you think your reader wants it. Look at what punctuation comes right before the translator.',
+ leaves:[
+ {k:'tp',tag:'Title page',h:`<div class="big"><span class="s" data-s="ti">THE DROWNED BELL</span></div><div class="ital"><span class="s" data-s="nv">a novel</span></div><div class="caps"><span class="s" data-s="au">ILSE BRANDAUER</span></div><div class="ital" style="font-size:.95rem"><span class="s" data-s="tr">Translated from the German by Tomas Reyes</span></div><div><div class="caps"><span class="s" data-s="pu">NIGHT HERON BOOKS</span></div><div style="font-size:.85rem;margin-top:4px"><span class="s" data-s="bk">Brooklyn</span></div></div>`},
+ {k:'verso',tag:'Copyright page',h:`<div>Originally published in German as <i><span class="s" data-s="gt">Die ertrunkene Glocke</span></i> by <span class="s" data-s="vk">Verlag Kranich, Vienna</span>, <span class="s" data-s="od">1987</span>.</div><div>English translation copyright © 2015 by Tomas Reyes</div><div>Published <span class="s" data-s="da">2015</span> by Night Heron Books</div>`}],
+ sorts:{
+  au:{f:[['ILSE BRANDAUER','Normal capitals, inverted: last name, comma, first name.'],['Ilse Brandauer','Invert the author’s name: last name, comma, first name.'],'Brandauer, Ilse']},
+  ti:{f:[['THE DROWNED BELL',CAPS],'The Drowned Bell']},
+  nv:{f:['a novel'],no:'A genre label on a title page is not part of the title.'},
+  gt:{f:['Die ertrunkene Glocke'],no:'That is the original German title. You read the English translation, so cite the title on your copy.'},
+  tr:{f:[['Translated from the German by Tomas Reyes','Use the standard role phrase: translated by.'],['Tomas Reyes, translator','In this position the role comes first: translated by Tomas Reyes.'],['trans. Tomas Reyes','Spell the role out: translated by.'],'translated by Tomas Reyes']},
+  pu:{f:[['NIGHT HERON BOOKS',CAPS],['Night Heron','Give the publisher’s name as it appears. Keep “Books.”'],'Night Heron Books']},
+  da:{f:['2015']},
+  od:{f:['1987']},
+  vk:{f:['Verlag Kranich, Vienna'],no:'That is the German publisher of the original. Your copy came from Night Heron Books.'},
+  bk:{f:['Brooklyn'],no:'MLA 9 leaves out the city of publication for books published after 1900.'}},
+ keys:[{au:['au',2],ti:['ti',1,'i'],od:['od',0,null,1],'c1.co':['tr',3],'c1.pu':['pu',2],'c1.da':['da',0]}],
+ why:{'c1.co':'Who translated it? For a translated work the translator is part of the entry.'},
+ flag:'Original date placed directly after the title (MLA’s position for this optional element), ahead of the translator. Translator treated as required.'},
+
+{name:'A print journal article',task:'Cite the article as printed in the journal.',
+ desk:'An article lives inside a journal, and journals come numbered. Watch the page range. MLA is fussy about the second number.',
+ leaves:[
+ {k:'jpage',tag:'First page of the article',h:`<div class="run"><span class="s" data-s="ct">WESTERN GOTHIC QUARTERLY</span><span><span class="s" data-s="nu">Vol. 14, No. 2</span> <span class="s" data-s="da">(2020)</span></span><span class="s" data-s="pg">117–138</span></div><h3><span class="s" data-s="ti">Ghost Lights and Gaslight: Spectral Technology in Ambrose Bierce</span></h3><div class="by"><span class="s" data-s="au">ADAIR FENWICK</span></div><p>When Bierce’s narrators see something they cannot explain, they reach first for the apparatus of the modern city: the arc lamp, the telegraph, the photographic plate. This essay reads that habit as an argument about where the uncanny lives …</p><div class="foot"><span class="s" data-s="pb">Published by the Western Gothic Society</span><span class="s" data-s="is">ISSN 0000-0000</span></div>`}],
+ sorts:{
+  au:{f:[['ADAIR FENWICK','Normal capitals, inverted: last name, comma, first name.'],['Adair Fenwick','Invert the author’s name: last name, comma, first name.'],'Fenwick, Adair']},
+  ti:{f:['Ghost Lights and Gaslight: Spectral Technology in Ambrose Bierce']},
+  ct:{f:[['WESTERN GOTHIC QUARTERLY',CAPS],'Western Gothic Quarterly']},
+  nu:{f:[['Vol. 14, No. 2','Lowercase the labels: vol. and no.'],['14.2','Spell out the labels: vol. 14, no. 2.'],['volume 14, number 2','Abbreviate the labels: vol. and no.'],'vol. 14, no. 2']},
+  da:{f:[['(2020)','No parentheses around the date.'],'2020']},
+  pg:{f:[['117-138','Page numbers take p. or pp.'],['pp. 117-138','When the second number shares its leading digits with the first, give only the last two: 117-38.'],['p. 117','Give the article’s full page range.'],'pp. 117-38']},
+  pb:{f:['Published by the Western Gothic Society'],no:'Journals, magazines, and newspapers don’t take a publisher element.'},
+  is:{f:['ISSN 0000-0000'],no:'An ISSN identifies the journal for librarians. MLA does not use it.'}},
+ keys:[{au:['au',2],ti:['ti',0,'q'],'c1.ti':['ct',1,'i'],'c1.nu':['nu',3],'c1.da':['da',1],'c1.pg':['pg',3]}]},
+
+{name:'A journal article in JSTOR',task:'Cite the article as you found it in JSTOR.',
+ desk:'Two containers now. The journal holds the article, and JSTOR holds the journal. The first container ends with a period; the second one starts after it.',
+ leaves:[
+ {k:'db',tag:'Database record',h:`<div class="dbh"><span class="s" data-s="db">JSTOR</span></div><div class="rec"><h3><span class="s" data-s="ti">Whitman’s Unfinished Reader</span></h3><div><span class="s" data-s="au">Prudence Hollis</span></div><dl><dt>Journal</dt><dd><i><span class="s" data-s="ct">Calamus Quarterly</span></i></dd><dt>Issue</dt><dd><span class="s" data-s="nu">Vol. 31, No. 1</span> <span class="s" data-s="da">(2015)</span>, <span class="s" data-s="pg">pp. 45-67</span></dd><dt>Publisher</dt><dd><span class="s" data-s="pb">Published by: Calamus Society</span></dd><dt>Stable URL</dt><dd><span class="s" data-s="url">https://www.jstor.org/stable/4417203</span></dd><dt>Page count</dt><dd><span class="s" data-s="pc">Page Count: 23</span></dd><dt>Your session</dt><dd><span class="s" data-s="ac">Accessed: 03-03-2026 14:22 UTC</span></dd></dl></div>`}],
+ sorts:{
+  au:{f:[['Prudence Hollis','Invert the author’s name: last name, comma, first name.'],'Hollis, Prudence']},
+  ti:{f:['Whitman’s Unfinished Reader']},
+  ct:{f:['Calamus Quarterly']},
+  nu:{f:[['Vol. 31, No. 1','Lowercase the labels: vol. and no.'],'vol. 31, no. 1']},
+  da:{f:[['(2015)','No parentheses around the date.'],'2015']},
+  pg:{f:['pp. 45-67']},
+  db:{f:['JSTOR']},
+  url:{f:[['https://www.jstor.org/stable/4417203',NOPROTO],'www.jstor.org/stable/4417203',['jstor.org','Give the article’s stable URL, not just the site.']]},
+  ac:{f:[['Accessed: 03-03-2026 14:22 UTC','Write it as Accessed, then day, abbreviated month, year: Accessed 3 Mar. 2026.'],['Accessed March 3, 2026','Day first, then the abbreviated month: Accessed 3 Mar. 2026.'],'Accessed 3 Mar. 2026']},
+  pb:{f:['Published by: Calamus Society'],no:'Journals don’t take a publisher element, and JSTOR only hosts the journal; it isn’t its publisher.'},
+  pc:{f:['Page Count: 23'],no:'The page range already tells the reader the length.'}},
+ keys:[{au:['au',1],ti:['ti',0,'q'],'c1.ti':['ct',0,'i'],'c1.nu':['nu',1],'c1.da':['da',1],'c1.pg':['pg',0],'c2.ti':['db',0,'i'],'c2.lo':['url',1],ac:['ac',2,null,1]}],
+ why:{'c2.ti':'Where did you find the article? Name the database as a second container.','c2.lo':'Give the stable URL the database supplies.'},
+ flag:'URL without the protocol, as in the MLA Style Center’s own JSTOR example. Access date accepted as optional.'},
+
+{name:'An online article with a DOI',task:'Cite the article. It was published online only.',
+ desk:'This one carries a DOI. When a source has one, the DOI beats a URL. MLA writes it as a link, and the entry still ends with a period after it.',
+ leaves:[
+ {k:'web',tag:'Journal web page',h:`<div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">https://grotesquestudies.example/sgr/2024/0312</span></div><div class="site"><span class="s" data-s="ct">STUDIES IN THE GROTESQUE</span></div><div class="nav"><span class="s" data-s="nu">Volume 9, Issue 3</span> · <span class="s" data-s="da">2024</span> · <span class="s" data-s="oa">Open Access</span></div><article><h3><span class="s" data-s="ti">The Laughing Corpse: Dark Humor and the American Wake</span></h3><div class="meta"><span class="s" data-s="au">ISIDORE QUIST</span> · <span class="s" data-s="pg">pp. 201–219</span> · <span class="s" data-s="doi">DOI: 10.5555/sgr.2024.0312</span></div><p>The American wake has always made room for a joke. This article follows the funeral laugh from the frontier tall tale to the twentieth-century undertaker’s memoir …</p></article><footer><span class="s" data-s="pb">Published by the Grotesque Studies Collective</span></footer>`}],
+ sorts:{
+  au:{f:[['ISIDORE QUIST','Normal capitals, inverted: last name, comma, first name.'],['Isidore Quist','Invert the author’s name.'],'Quist, Isidore']},
+  ti:{f:['The Laughing Corpse: Dark Humor and the American Wake']},
+  ct:{f:[['STUDIES IN THE GROTESQUE',CAPS],'Studies in the Grotesque']},
+  nu:{f:[['Volume 9, Issue 3','Abbreviate the labels, and call the issue a number: vol. 9, no. 3.'],['vol. 9, issue 3','MLA calls an issue a number: no. 3.'],'vol. 9, no. 3']},
+  da:{f:['2024']},
+  pg:{f:[['pp. 201-219','When the second number shares its leading digits with the first, give only the last two: 201-19.'],'pp. 201-19']},
+  doi:{f:[['DOI: 10.5555/sgr.2024.0312','Write the DOI as a link: https://doi.org/ followed by the number.'],['doi:10.5555/sgr.2024.0312','That is the older MLA 8 form. MLA 9 writes the DOI as a link: https://doi.org/…'],'https://doi.org/10.5555/sgr.2024.0312']},
+  oa:{f:['Open Access'],no:'Whether an article is free to read is not part of its citation.'},
+  pb:{f:['Published by the Grotesque Studies Collective'],no:'Journals don’t take a publisher element.'}},
+ keys:[{au:['au',2],ti:['ti',0,'q'],'c1.ti':['ct',1,'i'],'c1.nu':['nu',2],'c1.da':['da',0],'c1.pg':['pg',1,null,1],'c1.lo':['doi',2]}],
+ why:{'c1.lo':'Where does a reader find it online? Use the DOI.'},
+ flag:'Page range accepted as optional alongside the DOI, per the MLA Style Center’s two acceptable versions.'},
+
+{name:'A page on a website',task:'Cite the essay on this site.',
+ desk:'The page is the source. The website is the container. The site has a publisher of its own, and you read this on a particular day.',
+ leaves:[
+ {k:'web',tag:'Web page',note:`Your note:<br><span class="s" data-s="ac">read Oct. 2, 2026</span>`,h:`<div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url"><span class="s" data-s="url">https://www.lamplightersalmanac.org/essays/gas-lamps-ghost-story</span></span></div><div class="site"><span class="s" data-s="ct">THE LAMPLIGHTER’S ALMANAC</span></div><div class="nav">Essays · Archive · About</div><article><h3><span class="s" data-s="ti">How Gas Lamps Changed the Ghost Story</span></h3><div class="meta"><span class="s" data-s="au">By Odette Marsh</span> · <span class="s" data-s="da">September 14, 2023</span></div><p>Before the gas lamp, the ghost had the whole night to itself. Once the streets were lit, it retreated indoors, to the parlor and the stair …</p><p style="font-size:.78rem;color:#6d6656"><span class="s" data-s="ph">Photograph courtesy of the Thornfield Historical Society archive</span></p></article><footer>© 2023 <span class="s" data-s="pu">Thornfield Historical Society</span></footer>`}],
+ sorts:{
+  au:{f:[['By Odette Marsh','Leave out “By” and invert the name.'],['Odette Marsh','Invert the author’s name.'],'Marsh, Odette']},
+  ti:{f:['How Gas Lamps Changed the Ghost Story']},
+  ct:{f:[['THE LAMPLIGHTER’S ALMANAC',CAPS],'The Lamplighter’s Almanac']},
+  pu:{f:['Thornfield Historical Society']},
+  da:{f:[['September 14, 2023','Day, then month, then year, with the month abbreviated: 14 Sept. 2023.'],['14 September 2023','Abbreviate months longer than four letters: Sept.'],['14 Sep. 2023','MLA’s abbreviation for September is Sept.'],'14 Sept. 2023']},
+  url:{f:[['https://www.lamplightersalmanac.org/essays/gas-lamps-ghost-story',NOPROTO],'www.lamplightersalmanac.org/essays/gas-lamps-ghost-story',['www.lamplightersalmanac.org','Give the page’s own URL, not the home page.']]},
+  ac:{f:[['read Oct. 2, 2026','Write it as Accessed, then day, abbreviated month, year: Accessed 2 Oct. 2026.'],'Accessed 2 Oct. 2026']},
+  ph:{f:['Photograph courtesy of the Thornfield Historical Society archive'],no:'The photo credit belongs to an image on the page, not to the essay you are citing.'}},
+ keys:[{au:['au',2],ti:['ti',0,'q'],'c1.ti':['ct',1,'i'],'c1.pu':['pu',0],'c1.da':['da',3],'c1.lo':['url',1],ac:['ac',1,null,1]}],
+ why:{'c1.pu':'Who stands behind the website? Check the footer.','c1.lo':'The page’s address.'},
+ flag:'Access date accepted as optional.'},
+
+{name:'A site that publishes itself',task:'Cite the post.',
+ desk:'Same drill as the last one, with one difference. Read the footer and the masthead side by side.',
+ leaves:[
+ {k:'web',tag:'Web page',h:`<div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url"><span class="s" data-s="url">https://www.bigthicketheritage.org/news/reading-the-piney-woods</span></span></div><div class="site"><span class="s" data-s="ct">BIG THICKET HERITAGE SOCIETY</span></div><div class="nav"><span class="s" data-s="nw">News</span> · Events · Membership</div><article><h3><span class="s" data-s="ti">Reading the Piney Woods</span></h3><div class="meta"><span class="s" data-s="au">Lyle Stewart</span> · <span class="s" data-s="da">Posted May 2, 2024</span></div><p>The best guide to the Thicket is still the one you carry in your pocket: a field notebook, a pencil, and some patience …</p></article><footer><span class="s" data-s="fo">© 2024 Big Thicket Heritage Society</span></footer>`}],
+ sorts:{
+  au:{f:[['Lyle Stewart','Invert the author’s name.'],'Stewart, Lyle']},
+  ti:{f:['Reading the Piney Woods']},
+  ct:{f:[['BIG THICKET HERITAGE SOCIETY',CAPS],'Big Thicket Heritage Society']},
+  da:{f:[['Posted May 2, 2024','Drop “Posted” and write the date day, month, year: 2 May 2024.'],['May 2, 2024','Day, then month, then year: 2 May 2024.'],'2 May 2024']},
+  url:{f:[['https://www.bigthicketheritage.org/news/reading-the-piney-woods',NOPROTO],'www.bigthicketheritage.org/news/reading-the-piney-woods']},
+  fo:{f:['Big Thicket Heritage Society'],no:'The site’s publisher has the same name as the site. MLA leaves the publisher out rather than say it twice.'},
+  nw:{f:['News'],no:'A section label on the site. MLA does not need it.'}},
+ keys:[{au:['au',1],ti:['ti',0,'q'],'c1.ti':['ct',1,'i'],'c1.da':['da',2],'c1.lo':['url',1]}]},
+
+{name:'A film',task:'Cite the film.',
+ desk:'No author on a film, so the entry starts with the title. Unless you are writing about the director, in which case MLA lets you start with her. Either way, watch the capital letter on “Directed.”',
+ leaves:[
+ {k:'film',tag:'Opening titles',h:`<div class="sm"><span class="s" data-s="pu">PINEYWOOD PICTURES</span> presents</div><div class="big"><span class="s" data-s="ti">NIGHTFALL AT CADDO LAKE</span></div><div class="sm"><span class="s" data-s="dr">Directed by HARRIET GAINES</span></div><div class="sm" style="font-size:.72rem"><span class="s" data-s="lc">Filmed on location in Marion County, Texas</span></div><div class="sm" style="font-size:.72rem">© <span class="s" data-s="da">MCMLXXIV</span> <span class="s" data-s="pu">Pineywood Pictures Corporation</span></div>`}],
+ sorts:{
+  ti:{f:[['NIGHTFALL AT CADDO LAKE',CAPS],['Nightfall At Caddo Lake','In title case, short prepositions like “at” stay lowercase.'],'Nightfall at Caddo Lake']},
+  dr:{f:[['Harriet Gaines, director','Either start the entry with Gaines, Harriet, director (inverted), or put directed by Harriet Gaines after the title.'],'directed by Harriet Gaines','Gaines, Harriet, director']},
+  pu:{f:[['Pineywood Pictures Corporation','Drop business words like Corporation, Inc., and Co.'],['PINEYWOOD PICTURES',CAPS],'Pineywood Pictures']},
+  da:{f:[['MCMLXXIV','Convert the roman numerals: 1974.'],'1974']},
+  lc:{f:['Filmed on location in Marion County, Texas'],no:'That is where the film was shot, not where a reader can find it.'}},
+ keys:[
+  {ti:['ti',2,'i'],'c1.co':['dr',1],'c1.pu':['pu',2],'c1.da':['da',1]},
+  {au:['dr',2],ti:['ti',2,'i'],'c1.pu':['pu',2],'c1.da':['da',1]}],
+ why:{'c1.co':'Who directed it?'},
+ flag:'Two shapes accepted: title first with “Directed by,” or director first as “Gaines, Harriet, director.” Both appear on the OWL’s film page and the MLA Style Center’s film page. Roman-numeral date converted to arabic, per the MLA Handbook (confirmed by the instructor).'},
+
+{name:'A book from before 1900',task:'Cite the original 1872 printing.',
+ desk:'An old one. For books this age, MLA wants the city where you would normally put the publisher.',
+ leaves:[
+ {k:'tp',tag:'Title page',h:`<div class="big" style="font-size:1.5rem"><span class="s" data-s="ti">RAMBLES<br><span style="font-size:.7em">IN THE</span><br>CROSS TIMBERS.</span></div><div class="caps" style="font-size:.82rem"><span class="s" data-s="ti">BEING SKETCHES OF FRONTIER LIFE</span></div><div class="caps"><span class="s" data-s="au">BY JOSIAH CORBIN.</span></div><div><div class="caps"><span class="s" data-s="ci">GALVESTON:</span></div><div class="caps" style="font-size:.72rem;margin:4px 0"><span class="s" data-s="pr">PRINTED FOR THE AUTHOR BY J. W. PRYOR &amp; SONS.</span></div><div class="caps"><span class="s" data-s="da">1872.</span></div></div>`}],
+ sorts:{
+  au:{f:[['BY JOSIAH CORBIN.','Leave out “By” and the period, and invert the name.'],['Josiah Corbin','Invert the author’s name.'],'Corbin, Josiah']},
+  ti:{f:[['RAMBLES IN THE CROSS TIMBERS. BEING SKETCHES OF FRONTIER LIFE','Use title case, and join title and subtitle with a colon, whatever punctuation the title page uses.'],['Rambles in the Cross Timbers',SUBT],['Rambles in the Cross Timbers. Being Sketches of Frontier Life','MLA joins title and subtitle with a colon, even when the title page uses a period.'],'Rambles in the Cross Timbers: Being Sketches of Frontier Life']},
+  ci:{f:[['GALVESTON:','Normal capitals, and drop the colon.'],'Galveston']},
+  da:{f:['1872']},
+  pr:{f:['Printed for the author by J. W. Pryor & Sons'],no:'For a book from before 1900, the city stands in for the publisher. The printer is not needed.'}},
+ keys:[{au:['au',2],ti:['ti',3,'i'],'c1.pu':['ci',1],'c1.da':['da',0]}],
+ why:{'c1.pu':'For a book this old, the city of publication goes where the publisher would.'},
+ flag:'City only, printer omitted, following the OWL’s pre-1900 rule. MLA presents the city as a substitute for the publisher in this case.'},
+
+{name:'A headline in sentence case',task:'Cite the news story.',
+ desk:'News sites capitalize headlines like sentences. MLA doesn’t care how the site styles it: every title goes into title case.',
+ leaves:[
+ {k:'web',tag:'News site',h:`<div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url"><span class="s" data-s="url">https://www.pineywoodsledger.com/news/2025/10/03/last-log-church</span></span></div><div class="site"><span class="s" data-s="ct">The Piney Woods Ledger</span></div><div class="nav">Local · Sports · Obituaries · Opinion</div><article><h3><span class="s" data-s="ti">Volunteers race to save the last log church in Angelina County</span></h3><div class="meta"><span class="s" data-s="au">By ROSA DELGADO</span> | <span class="s" data-s="sw">Staff Writer</span> · <span class="s" data-s="da">Oct. 3, 2025</span></div><p>The church has stood on the same rise since before the railroad came through. This fall a crew of retirees, a Boy Scout troop, and one stubborn carpenter are trying to keep it standing …</p></article><footer><span class="s" data-s="lm">© 2025 Ledger Media Group</span></footer>`}],
+ sorts:{
+  au:{f:[['By ROSA DELGADO','Leave out “By,” use normal capitals, and invert the name.'],['Rosa Delgado','Invert the author’s name.'],'Delgado, Rosa']},
+  ti:{f:[['Volunteers race to save the last log church in Angelina County','MLA puts every title in title case, whatever the site does: capitalize the principal words.'],['Volunteers Race To Save The Last Log Church In Angelina County','Leave articles, prepositions, and the “to” of an infinitive lowercase unless they come first.'],'Volunteers Race to Save the Last Log Church in Angelina County']},
+  ct:{f:[['The Piney Woods Ledger','Treat the newspaper’s name as the site shows it, in italics.'],'Piney Woods Ledger']},
+  da:{f:[['Oct. 3, 2025','Day, then month, then year: 3 Oct. 2025.'],'3 Oct. 2025']},
+  url:{f:[['https://www.pineywoodsledger.com/news/2025/10/03/last-log-church',NOPROTO],'www.pineywoodsledger.com/news/2025/10/03/last-log-church']},
+  sw:{f:['Staff Writer'],no:'A job title is not part of the author’s name.'},
+  lm:{f:['Ledger Media Group'],no:'Newspapers are periodicals, and periodicals don’t take a publisher element.'}},
+ keys:[{au:['au',2],ti:['ti',2,'q'],'c1.ti':['ct',[0,1],'i'],'c1.da':['da',1],'c1.lo':['url',1]}],
+ flag:'Newspaper name accepted with or without the leading “The”; the site’s masthead includes it.'},
+
+{name:'A book title inside an article title',task:'Cite the article.',
+ desk:'Titles inside titles keep their own styling. A novella stays in italics even inside an article title, however the journal chose to print it.',
+ leaves:[
+ {k:'jpage',tag:'First page of the article',h:`<div class="run"><span class="s" data-s="ct">STUDIES IN THE GHOST STORY</span><span><span class="s" data-s="nu">Vol. 7, No. 1</span> · <span class="s" data-s="da">2018</span></span><span class="s" data-s="pg">33–52</span></div><h3 style="font-weight:700;font-style:italic"><span class="s" data-s="ti">Lamplight and Terror in <span style="font-style:normal">The Turn of the Screw</span></span></h3><div class="by"><span class="s" data-s="au">CELIA BRANDT</span></div><p>James’s governess carries a candle through most of the novella’s worst moments. This essay asks what she can and cannot see by it …</p>`}],
+ sorts:{
+  au:{f:[['CELIA BRANDT','Normal capitals, inverted: last name, comma, first name.'],['Celia Brandt','Invert the author’s name.'],'Brandt, Celia']},
+  ti:{f:[['Lamplight and Terror in The Turn of the Screw','The novella’s title keeps its own styling inside the article title: italics.'],['Lamplight and Terror in “The Turn of the Screw”','Quotation marks are for short works. A novella’s title stays in italics, even inside an article title.'],'Lamplight and Terror in _The Turn of the Screw_']},
+  ct:{f:[['STUDIES IN THE GHOST STORY',CAPS],'Studies in the Ghost Story']},
+  nu:{f:[['Vol. 7, No. 1','Lowercase the labels: vol. and no.'],'vol. 7, no. 1']},
+  da:{f:['2018']},
+  pg:{f:[['33–52','Page numbers take pp.'],'pp. 33-52']}},
+ keys:[{au:['au',2],ti:['ti',2,'q'],'c1.ti':['ct',1,'i'],'c1.nu':['nu',1],'c1.da':['da',0],'c1.pg':['pg',1]}],
+ why:{ti:'The article’s title, with the novella’s title inside it.'}},
+
+{name:'A story title inside an essay title',task:'Cite the essay in this collection.',
+ desk:'A quoted title inside a quoted title takes single quotation marks. And when the essay title ends on that inner title, the period goes inside both marks.',
+ leaves:[
+ {k:'tp',tag:'Collection title page',h:`<div class="big"><span class="s" data-s="ct">HAUNTED ROOMS</span></div><div class="ital"><span class="s" data-s="ct">Essays on the American Ghost Story</span></div><div class="caps"><span class="s" data-s="ed">Edited by HARLAN REESE</span></div><div class="caps"><span class="s" data-s="pu">REDBUD PRESS</span></div><div style="font-size:.8rem">© <span class="s" data-s="da">2020</span></div>`},
+ {k:'pg',tag:'Page 141',h:`<div class="folio"><span class="s" data-s="pg">141</span><span style="letter-spacing:.1em">HAUNTED ROOMS</span></div><div style="text-align:center;font-size:1.25rem;margin:10px 0 6px"><span class="s" data-s="ti">The Ghost Story Inside “The Yellow Wallpaper”</span></div><div style="text-align:center;letter-spacing:.14em;font-size:.85rem;margin-bottom:14px"><span class="s" data-s="au">NOOR HADDAD</span></div><p style="font-size:.86rem;line-height:1.6;margin:0">Gilman’s narrator never calls the woman behind the paper a ghost. Readers have been doing it for her since 1892 … <span style="font-size:.78rem">(The essay ends on <span class="s" data-s="pg">page 163</span>.)</span></p>`}],
+ sorts:{
+  au:{f:[['NOOR HADDAD','Normal capitals, inverted: last name, comma, first name.'],['Noor Haddad','Invert the author’s name.'],'Haddad, Noor']},
+  ti:{f:[['The Ghost Story Inside "The Yellow Wallpaper"','Inside quotation marks, a quoted title takes single quotation marks.'],['The Ghost Story Inside _The Yellow Wallpaper_','A short story takes quotation marks, not italics, even inside another title.'],'The Ghost Story Inside ‘The Yellow Wallpaper’']},
+  ct:{f:[['HAUNTED ROOMS: ESSAYS ON THE AMERICAN GHOST STORY',CAPS],['Haunted Rooms',SUBT],'Haunted Rooms: Essays on the American Ghost Story']},
+  ed:{f:[['Edited by HARLAN REESE','Use the role phrase in lowercase, edited by, with the name in normal capitals.'],['Harlan Reese, editor','In this position the role comes first: edited by Harlan Reese.'],'edited by Harlan Reese']},
+  pu:{f:[['REDBUD PRESS',CAPS],'Redbud Press']},
+  da:{f:['2020']},
+  pg:{f:[['141','Give the essay’s whole page range, with pp.'],['pp. 141-163','When the second number shares its leading digits with the first, give only the last two: 141-63.'],'pp. 141-63']}},
+ keys:[{au:['au',2],ti:['ti',2,'q'],'c1.ti':['ct',2,'i'],'c1.co':['ed',2],'c1.pu':['pu',1],'c1.da':['da',0],'c1.pg':['pg',2]}],
+ why:{ti:'The essay’s title, with the story’s title inside it.','c1.co':'Who put the collection together?','c1.pg':'Which pages does the essay occupy?'}},
+
+{name:'A novel title inside a book title',task:'Cite the book.',
+ desk:'Inside an italicized title, a title that would normally be italicized flips back to roman.',
+ leaves:[
+ {k:'tp',tag:'Title page',h:`<div class="big" style="font-size:1.45rem"><span class="s" data-s="ti">VOICES IN THE DARK</span></div><div class="ital"><span class="s" data-s="ti">Ventriloquism and Terror in <b>Wieland</b></span></div><div class="caps"><span class="s" data-s="au">GIDEON FAIRWEATHER</span></div><div class="caps"><span class="s" data-s="pu">ANGELINA RIVER UNIVERSITY PRESS</span><div style="font-size:.8rem;margin-top:4px"><span class="s" data-s="da">2016</span></div></div>`}],
+ sorts:{
+  au:{f:[['GIDEON FAIRWEATHER','Normal capitals, inverted: last name, comma, first name.'],['Gideon Fairweather','Invert the author’s name.'],'Fairweather, Gideon']},
+  ti:{f:[['VOICES IN THE DARK: VENTRILOQUISM AND TERROR IN WIELAND',CAPS],['Voices in the Dark: Ventriloquism and Terror in Wieland','Wieland is a novel’s title inside your book’s title. Mark it, so that inside the italicized title it switches to roman.'],['Voices in the Dark: Ventriloquism and Terror in “Wieland”','A novel takes italics, not quotation marks. Inside an italicized title, it is set in roman instead.'],'Voices in the Dark: Ventriloquism and Terror in _Wieland_']},
+  pu:{f:[['ANGELINA RIVER UNIVERSITY PRESS','Normal capitals, and shorten University Press to UP.'],['Angelina River University Press','MLA shortens University Press to UP.'],'Angelina River UP']},
+  da:{f:['2016']}},
+ keys:[{au:['au',2],ti:['ti',3,'i'],'c1.pu':['pu',2],'c1.da':['da',0]}],
+ flag:'Inner title set in roman inside the italicized title, per MLA Handbook 9th ed. 2.113 as quoted by the MLA Style Center.'},
+
+{name:'A film watched on YouTube',task:'Cite the film you watched on YouTube.',
+ desk:'The video’s title is the uploader’s label, not the film’s. Cite the film first: title, director, studio, year. Then YouTube is the second container, with who uploaded it and when.',
+ leaves:[
+ {k:'yt',tag:'Video page',h:`<div class="top"><span class="logo"><b>▶</b><span class="s" data-s="yt">YouTube</span></span></div><div class="player"><div class="sm"><span class="s" data-s="pu">LONE STAR PHOTOPLAYS</span> presents</div><div class="big"><span class="s" data-s="ti">THE HOLLOW BRIDE</span></div><div class="sm"><span class="s" data-s="dr">directed by ADA PRYCE</span></div></div><div class="vt"><span class="s" data-s="vt">THE HOLLOW BRIDE (1926) 🎬 FULL Silent Horror Movie | Restored HD</span></div><div class="ch"><i></i><span><b><span class="s" data-s="up">SilentVaultArchive</span></b><br><span style="color:#666">48.1K subscribers</span></span></div><div class="desc"><span class="s" data-s="vw">1,204,377 views</span> · <span class="s" data-s="ud">Mar 3, 2019</span><br>The Hollow Bride (<span class="s" data-s="da">1926</span>). A silent horror classic from Lone Star Photoplays, restored from a 35mm print. <span class="s" data-s="pd">Public domain.</span><br><span style="font-family:var(--f-type);font-size:.78rem"><span class="s" data-s="url">https://www.youtube.com/watch?v=Xq7rB2mLp0A</span></span></div>`}],
+ sorts:{
+  ti:{f:[['THE HOLLOW BRIDE',CAPS],'The Hollow Bride']},
+  vt:{f:['THE HOLLOW BRIDE (1926) FULL Silent Horror Movie | Restored HD'],no:'That is the uploader’s label for the video. You are citing the film, so use its own title from the title card.'},
+  dr:{f:[['Ada Pryce, director','Either start the entry with Pryce, Ada, director (inverted), or put directed by Ada Pryce after the title.'],'directed by Ada Pryce','Pryce, Ada, director']},
+  pu:{f:[['LONE STAR PHOTOPLAYS',CAPS],'Lone Star Photoplays']},
+  da:{f:['1926']},
+  yt:{f:['YouTube']},
+  up:{f:[['SilentVaultArchive','Give the uploader with its role: uploaded by SilentVaultArchive.'],'uploaded by SilentVaultArchive',['uploaded by Silent Vault Archive','Give the account name exactly as the site shows it.']]},
+  ud:{f:[['Mar 3, 2019','Day, then abbreviated month with its period, then year: 3 Mar. 2019.'],['3 Mar 2019','The abbreviation Mar. takes a period.'],'3 Mar. 2019']},
+  url:{f:[['https://www.youtube.com/watch?v=Xq7rB2mLp0A',NOPROTO],'www.youtube.com/watch?v=Xq7rB2mLp0A']},
+  vw:{f:['1,204,377 views'],no:'View counts change daily and do not help a reader find the video.'},
+  pd:{f:['Public domain'],no:'Copyright status is not part of a citation.'}},
+ keys:[
+  {ti:['ti',1,'i'],'c1.co':['dr',1],'c1.pu':['pu',1],'c1.da':['da',0],'c2.ti':['yt',0,'i'],'c2.co':['up',1],'c2.da':['ud',2],'c2.lo':['url',1]},
+  {au:['dr',2],ti:['ti',1,'i'],'c1.pu':['pu',1],'c1.da':['da',0],'c2.ti':['yt',0,'i'],'c2.co':['up',1],'c2.da':['ud',2],'c2.lo':['url',1]}],
+ why:{'c1.co':'Who directed the film?','c2.ti':'Where did you watch it? The platform is a second container.','c2.co':'Who put the film on YouTube?','c2.da':'When was it uploaded?','c2.lo':'The video’s address.'},
+ flag:'Follows the MLA Style Center’s ninth-edition film page (the Sanctuary example: film first, then YouTube, uploaded by …). An older Style Center post, marked as eighth-edition content, says to copy the uploader’s video title instead; this tool follows the ninth edition.'},
+
+{name:'Roman numerals on an old journal',task:'Cite the article.',
+ desk:'Old journals number their volumes and issues in roman numerals. MLA doesn’t: volume and issue numbers go in arabic, whatever the masthead says.',
+ leaves:[
+ {k:'jpage',tag:'First page of the article',h:`<div class="run"><span class="s" data-s="ct">SOUTHWESTERN QUARTERLY REVIEW.</span><span><span class="s" data-s="nu">Vol. XXIII. — No. IV.</span></span><span class="s" data-s="da">1897.</span></div><div class="folio" style="justify-content:flex-end;margin-top:-12px"><span class="s" data-s="pg">301</span></div><h3><span class="s" data-s="ti">THE HAUNTED FERRY AT SABINE PASS.</span></h3><div class="by"><span class="s" data-s="au">BY LUCINDA GRAVES HOLLOWAY.</span></div><p>There is a crossing below the town where the ferryman will not take a passenger after dark, and he will not say why. I put the question to him three times in the summer of ’96 … <span style="font-size:.78rem">(The article ends on <span class="s" data-s="pg">page 318</span>.)</span></p>`}],
+ sorts:{
+  au:{f:[['BY LUCINDA GRAVES HOLLOWAY.','Leave out “By” and the period, use normal capitals, and invert the name.'],['Lucinda Graves Holloway','Invert the author’s name.'],'Holloway, Lucinda Graves']},
+  ti:{f:[['THE HAUNTED FERRY AT SABINE PASS.','Normal capitals, and drop the period the old masthead style puts after every title.'],'The Haunted Ferry at Sabine Pass']},
+  ct:{f:[['SOUTHWESTERN QUARTERLY REVIEW.',CAPS],'Southwestern Quarterly Review']},
+  nu:{f:[['Vol. XXIII. — No. IV.','Convert the roman numerals to arabic and lowercase the labels: vol. 23, no. 4.'],['vol. XXIII, no. IV','Volume and issue numbers go in arabic numerals, even when the journal prints roman: vol. 23, no. 4.'],['Vol. 23, No. 4','Lowercase the labels: vol. and no.'],'vol. 23, no. 4']},
+  da:{f:[['1897.','Just the year. The punctuation after it is yours to choose.'],'1897']},
+  pg:{f:[['301-318','Page numbers take pp.'],['pp. 301-318','When the second number shares its leading digits with the first, give only the last two: 301-18.'],'pp. 301-18']}},
+ keys:[{au:['au',2],ti:['ti',1,'q'],'c1.ti':['ct',1,'i'],'c1.nu':['nu',3],'c1.da':['da',1],'c1.pg':['pg',2]}],
+ flag:'Roman volume and issue numbers converted to arabic, per the MLA Handbook (confirmed by the instructor; not stated on the OWL or Style Center pages consulted).'},
+
+{name:'An introduction numbered in roman',task:'Cite the introduction, not the stories.',
+ desk:'Front matter is often numbered in roman. Those page numbers stay roman: they are the book’s own page numbers, not a volume count. And a plain section label like Introduction gets neither italics nor quotation marks.',
+ leaves:[
+ {k:'tp',tag:'Title page',h:`<div class="big" style="font-size:1.5rem"><span class="s" data-s="ct">TALES OF THE<br>CROSS TIMBERS</span></div><div class="caps"><span class="s" data-s="by">by JOSIAH CORBIN</span></div><div class="ital" style="font-size:.95rem"><span class="s" data-s="au">With an Introduction by CONSTANCE WHITLOW</span></div><div><div class="caps"><span class="s" data-s="pu">REDBUD PRESS</span></div><div style="font-size:.8rem;margin-top:4px"><span class="s" data-s="da">2021</span></div></div>`},
+ {k:'pg',tag:'Page xi',h:`<div class="folio"><span class="s" data-s="pg">xi</span><span style="letter-spacing:.1em">INTRODUCTION</span></div><div style="text-align:center;letter-spacing:.2em;font-size:1.15rem;margin:18px 0"><span class="s" data-s="ti">INTRODUCTION</span></div><p style="font-size:.86rem;line-height:1.6;margin:0">Josiah Corbin printed his first book at his own expense in Galveston in 1872 and spent the rest of his life trying to recover the cost … <span style="font-size:.78rem">(The introduction ends on <span class="s" data-s="pg">page xxxiv</span>; the tales begin on <span class="s" data-s="p1">page 1</span>.)</span></p>`}],
+ sorts:{
+  au:{f:[['With an Introduction by Constance Whitlow','Start the entry with the introduction’s author, inverted.'],['Constance Whitlow','Invert the author’s name.'],'Whitlow, Constance']},
+  ti:{f:[['INTRODUCTION',CAPS],'Introduction']},
+  ct:{f:[['TALES OF THE CROSS TIMBERS',CAPS],'Tales of the Cross Timbers']},
+  by:{f:[['Josiah Corbin','Name the book’s author after its title, with by: by Josiah Corbin.'],['Corbin, Josiah','Only the name that starts an entry is inverted. Here it is by Josiah Corbin.'],'by Josiah Corbin']},
+  pu:{f:[['REDBUD PRESS',CAPS],'Redbud Press']},
+  da:{f:['2021']},
+  pg:{f:[['xi-xxxiv','Page numbers take pp.'],['pp. 11-34','Keep page numbers as the book prints them. Front-matter pages numbered in roman stay roman.'],'pp. xi-xxxiv']},
+  p1:{f:['page 1'],no:'That is where the tales begin. You are citing the introduction, which runs from xi to xxxiv.'}},
+ keys:[{au:['au',2],ti:['ti',1,'r'],'c1.ti':['ct',1,'i'],'c1.co':['by',2],'c1.pu':['pu',1],'c1.da':['da',0],'c1.pg':['pg',2]}],
+ why:{ti:'What part of the book are you citing?','c1.ti':'The book that holds the introduction.','c1.co':'Who wrote the book itself?','c1.pg':'Which pages does the introduction occupy?'},
+ flag:'Modeled on the OWL’s introduction entry (Duncan, Introduction, Permanence and Change, pp. xiii-xliv). Roman page numbers kept and given in full.'},
+
+{kind:'page',name:'The Works Cited page',task:'Format the list.',
+ desk:'Six finished entries, set badly. Fix the page: heading, spacing, indent, order, and the header that runs on every page of the paper.',
+ entries:[[0,0],[10,0],[5,0],[16,0],[1,0],[8,0]],
+ last:'Lindqvist',pageNo:7,
+ ctl:[
+  {id:'htext',label:'Heading',opts:['Works Cited','Bibliography','References','Sources'],key:0,note:'MLA calls the list Works Cited.'},
+  {id:'hstyle',label:'Heading style',opts:['Plain','Bold','Italic','Underlined','All capitals'],key:0,note:'No bold, italics, underlining, or all capitals on the heading. Plain Works Cited.'},
+  {id:'halign',label:'Heading position',opts:['Left margin','Centered'],key:1,note:'Center the heading. It is the only thing on the page that is centered.'},
+  {id:'indent',label:'Entry indent',opts:['No indent','First-line indent','Hanging indent, 0.5 in.'],key:2,note:'Use a hanging indent: each entry starts at the margin, and its second and later lines are indented half an inch.'},
+  {id:'spacing',label:'Line spacing',opts:['Single','Double'],key:1,note:'Double-space the whole list, like the rest of the paper.'},
+  {id:'gap',label:'Between entries',opts:['Extra blank line','No extra space'],key:1,note:'Don’t add blank lines between entries. Double spacing already separates them.'},
+  {id:'rh',label:'Running header',opts:['None','Lindqvist 7, top right','Lindqvist 7, top left','Page 7, top right','Lindqvist, p. 7, top right'],key:1,note:'Every page carries your last name and the page number, top right: Lindqvist 7.'}],
+ start:{htext:0,hstyle:1,halign:0,indent:0,spacing:0,gap:0,rh:0,order:[5,4,1,0,3,2]}}
+];
+
+/* ---------- Normalizing ---------- */
+EX.forEach(ex=>{
+  if(ex.kind==='page')return;
+  for(const id in ex.sorts){const s=ex.sorts[id];s.f=s.f.map(x=>Array.isArray(x)?{t:x[0],n:x[1]}:{t:x})}
+  ex.keys=ex.keys.map(k=>{const o={};for(const p in k){const [s,f,st,opt]=k[p];o[p]={s,f:Array.isArray(f)?f:[f],st:st||null,opt:!!opt}}return o});
+});
+
+/* ---------- Building an entry ---------- */
+const QUOTES=/[’”]+$/;
+function formText(ex,v){return ex.sorts[v.s].f[v.f].t}
+function plainOf(t){return t.replace(/_/g,'')}
+function startsLower(t){return /^[“‘"]*[a-z]/.test(plainOf(t))}
+function baseSegs(ex,path,v){
+  const t=formText(ex,v);
+  const base=TITLED.has(path)&&v.st==='i';
+  let segs=t.split('_').map((x,k)=>({t:x,i:(k%2?!base:base)?1:0})).filter(s=>s.t);
+  if(TITLED.has(path)&&v.st==='q')segs=[{t:'“',i:0},...segs,{t:'”',i:0}];
+  return segs;
+}
+function capFirst(segs){const s=segs.find(x=>x.t);if(!s)return;s.t=s.t.replace(/^([“‘"]*)([a-z])/,(m,a,b)=>a+b.toUpperCase())}
+function applyPunct(segs,p){
+  segs=segs.map(s=>({...s}));
+  if(!p)return segs;
+  let trail='',i=segs.length-1;
+  while(i>=0){const m=segs[i].t.match(QUOTES);if(!m)break;trail=m[0]+trail;segs[i].t=segs[i].t.slice(0,-m[0].length);if(segs[i].t)break;i--}
+  segs=segs.filter(s=>s.t);segs.push({t:p,i:0});if(trail)segs.push({t:trail,i:0});
+  return segs;
+}
+function coreLast(ex,path,v){const t=baseSegs(ex,path,v).map(s=>s.t).join('').replace(QUOTES,'');return t.slice(-1)}
+/* What MLA's template requires after and at the start of each element, given the elements present */
+function template(ex,entry){
+  const exp={};
+  const set=(p,mark,first)=>{const v=entry[p];const ch=coreLast(ex,p,v);
+    const pu=(ch==='?'||ch==='!')?'':(mark==='.'&&ch==='.')?'':mark;
+    exp[p]={pu,cap:startsLower(formText(ex,v))?!!first:null}};
+  ['au','ti','od'].forEach(p=>{if(entry[p])set(p,'.',false)});
+  for(const c of['c1','c2']){const els=CEL.map(e=>c+'.'+e).filter(p=>entry[p]);els.forEach((p,i)=>set(p,i===els.length-1?'.':',',i===0))}
+  if(entry.ac)set('ac','.',false);
+  return exp;
+}
+function unitSegs(ex,p,v,pu,cap){let s=baseSegs(ex,p,v);if(cap)capFirst(s);return applyPunct(s,pu)}
+function orderOf(entry){return PATHS.filter(p=>entry[p])}
+function assemble(ex,entry,exp){
+  const out=[];
+  orderOf(entry).forEach((p,i)=>{const v=entry[p];const pu=exp?exp[p].pu:(v.pu||'');const cap=exp?!!exp[p].cap:!!v.cap;
+    if(i)out.push({t:' ',i:0});out.push(...unitSegs(ex,p,v,pu,cap))});
+  return out;
+}
+function assembleKey(ex,e){return assemble(ex,e,template(ex,e))}
+function segsHTML(segs){return segs.map(s=>s.i?'<i>'+esc(s.t)+'</i>':esc(s.t)).join('')}
+function segsPlain(segs){return segs.map(s=>s.i?'*'+s.t+'*':s.t).join('').replace(/\*\*/g,'')}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function chipHTML(t){return t.split('_').map((x,k)=>k%2?'<i>'+esc(x)+'</i>':esc(x)).join('')}
+
+/* ---------- Checking ---------- */
+function keyEntryFor(key,entry){
+  const e={};
+  for(const p in key){const k=key[p];const v=entry[p];
+    if(k.opt&&!v)continue;
+    const f=(v&&v.s===k.s&&k.f.includes(v.f))?v.f:k.f[0];
+    e[p]={s:k.s,f,st:k.st};}
+  return e;
+}
+function check(ex,entry){
+  let best=null;
+  ex.keys.forEach((key,ki)=>{
+    const errs=[];const exp=template(ex,keyEntryFor(key,entry));
+    for(const p of PATHS){
+      const v=entry[p],k=key[p];
+      if(!k){if(v)errs.push({p,type:'extra',v});continue}
+      if(!v){if(!k.opt)errs.push({p,type:'missing',k});continue}
+      if(v.s!==k.s){errs.push({p,type:'wrongsort',v,k});continue}
+      let ok=true;
+      if(!k.f.includes(v.f)){errs.push({p,type:'form',v,k});ok=false}
+      if(k.st&&v.st!==k.st){errs.push({p,type:'style',v,k});ok=false}
+      if(!ok)continue;
+      const x=exp[p];
+      if((v.pu||'')!==x.pu)errs.push({p,type:'punct',v,x});
+      if(x.cap!==null&&!!v.cap!==x.cap)errs.push({p,type:'cap',v,x});
+    }
+    if(!best||errs.length<best.errs.length)best={ki,key,errs};
+  });
+  return best;
+}
+function whereBelongs(key,sid){for(const p in key)if(key[p].s===sid)return p;return null}
+function slotName(p){return NAME[p]}
+const PUN={'.':'a period',',':'a comma','':'nothing'};
+function message(ex,key,e){
+  const sorts=ex.sorts;const why=p=>(ex.why&&ex.why[p])||WHY[p];
+  const label=sid=>'“'+plainOf(sorts[sid].f[0].t)+'”';
+  if(e.type==='missing')return{h:'Missing: '+slotName(e.p),b:why(e.p)};
+  if(e.type==='extra'||e.type==='wrongsort'){
+    const sid=e.v.s,s=sorts[sid],home=whereBelongs(key,sid);
+    let b;
+    if(s.no)b=s.no;else if(home)b='This belongs in '+slotName(home)+'.';else b='This doesn’t belong in this entry.';
+    if(e.type==='wrongsort')b+=' '+slotName(e.p)+' needs something else: '+why(e.p).charAt(0).toLowerCase()+why(e.p).slice(1);
+    return{h:slotName(e.p)+': '+label(sid),b};
+  }
+  if(e.type==='form'){const n=sorts[e.v.s].f[e.v.f].n;return{h:slotName(e.p)+': right information, wrong form',b:n||'Write it in a different form here.'}}
+  if(e.type==='style')return{h:slotName(e.p)+': title styling',b:e.k.st==='r'?'A plain section label like Introduction, Preface, Foreword, or Afterword takes neither italics nor quotation marks.':e.k.st==='i'?'This title stands on its own (a book, journal, website, film, or platform), so it is set in italics, however the source prints it.':'This title is part of a larger whole, so it goes in quotation marks, however the source prints it.'};
+  if(e.type==='punct'){
+    const x=e.x.pu,c=coreLast(ex,e.p,e.v),p=e.p;let b;
+    if(x===''&&c==='.')b='This element already ends with a period, and MLA doesn’t double it. Add nothing after it.';
+    else if(x==='')b='The title’s own punctuation closes this element. Add nothing after it.';
+    else if(x===',')b='Elements inside a container are separated by commas.';
+    else if(p==='au')b='The author element ends with a period.';
+    else if(p==='ti')b='The title of the source ends with a period.';
+    else if(p==='od')b='The original date stands alone after the title and ends with a period.';
+    else if(p==='ac')b='The date of access ends with a period, and so does the entry.';
+    else b='This is the last element in its container, so it ends with a period.'+(orderOf(keyEntryFor(key,{})).slice(-1)[0]===p?' Every entry ends with a period.':'');
+    if(x&&/[’”]$/.test(baseSegs(ex,p,e.v).map(s=>s.t).join('')))b+=' The mark goes inside the closing quotation marks.';
+    return{h:slotName(p)+': followed by '+PUN[e.v.pu||''],b};
+  }
+  if(e.type==='cap'){const t=plainOf(formText(ex,e.v));
+    return{h:slotName(e.p)+': first letter',b:e.x.cap?'This element comes right after a period, so its first word takes a capital: '+t.charAt(0).toUpperCase()+t.slice(1)+'.':'This element comes after a comma, so it stays lowercase: '+t+'.'}}
+}
+
+/* ---------- Comparison view ---------- */
+const PUNCT='.,:;?!“”‘’';
+function tokens(segs){
+  const out=[];let sp=false;
+  for(const s of segs)for(const c of s.t){
+    if(/\s/.test(c)){sp=true;continue}
+    const last=out[out.length-1];
+    if(PUNCT.includes(c)){out.push({t:c,i:s.i,sp});sp=false;continue}
+    if(last&&!sp&&last.i===s.i&&!PUNCT.includes(last.t)){last.t+=c;continue}
+    out.push({t:c,i:s.i,sp});sp=false;
+  }
+  return out;
+}
+function diff(a,b){
+  const n=a.length,m=b.length,K=t=>t.t+'|'+t.i;
+  const L=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)L[i][j]=K(a[i])===K(b[j])?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+  const ops=[];let i=0,j=0;
+  while(i<n&&j<m){if(K(a[i])===K(b[j])){ops.push(['=',a[i],b[j]]);i++;j++}else if(L[i+1][j]>=L[i][j+1]){ops.push(['-',a[i]]);i++}else{ops.push(['+',b[j]]);j++}}
+  while(i<n)ops.push(['-',a[i++]]);while(j<m)ops.push(['+',b[j++]]);
+  return ops;
+}
+function tokHTML(t,cls){let h=esc(t.t);if(t.i)h='<i>'+h+'</i>';if(cls)h='<span class="'+cls+'">'+h+'</span>';return (t.sp?' ':'')+h}
+
+/* ---------- Key sheet expansion ---------- */
+function expandKey(key){
+  const paths=Object.keys(key);const res=[];
+  const rec=(i,e)=>{
+    if(i===paths.length){res.push(Object.assign({},e));return}
+    const p=paths[i],k=key[p];
+    if(k.opt)rec(i+1,e);
+    for(const f of k.f){e[p]={s:k.s,f,st:k.st};rec(i+1,e);delete e[p]}
+  };
+  rec(0,{});return res;
+}
+
+/* ---------- The Works Cited page ---------- */
+function pageEntries(ex){return ex.entries.map(([xi,ki])=>{const src=EX[xi];const e=expandKey(src.keys[ki]).filter(z=>Object.keys(z).length===Object.keys(src.keys[ki]).filter(p=>!src.keys[ki][p].opt).length)[0];return assembleKey(src,e)})}
+function sortKey(segs){return segsPlain(segs).replace(/[*“”‘’"]/g,'').replace(/^(the|an|a)\s+/i,'').toLowerCase()}
+function checkPage(ex,st){
+  const errs=[];
+  ex.ctl.forEach(c=>{if(st[c.id]!==c.key)errs.push({h:c.label+': '+c.opts[st[c.id]],b:c.note})});
+  const ents=pageEntries(ex);const want=ents.map((s,i)=>i).sort((a,b)=>sortKey(ents[a])<sortKey(ents[b])?-1:1);
+  if(st.order.join()!==want.join()){
+    let b='Alphabetize entries by their first element, ignoring A, An, and The at the start.';
+    const ti=ents.findIndex(s=>/^the\s/i.test(segsPlain(s).replace(/[*“]/g,'')));
+    if(ti>=0&&st.order.indexOf(ti)!==want.indexOf(ti))b+=' An entry that begins with The files under the next word: '+plainOf(segsPlain(ents[ti]).replace(/\*/g,'').split('.')[0])+' goes under H.';
+    errs.push({h:'Order of entries',b});
+  }
+  return {errs,want};
+}
+
+/* ---------- UI ---------- */
+const store={get(){try{return JSON.parse(localStorage.getItem('core-elements-v2'))||{}}catch(e){return{}}},set(v){try{localStorage.setItem('core-elements-v2',JSON.stringify(v))}catch(e){}}};
+const S={view:'bench',ex:0,entries:EX.map(ex=>ex.kind==='page'?JSON.parse(JSON.stringify(ex.start)):{}),hand:null,open:null,proof:null,collate:false,c2:false,done:new Set(store.get().done||[])};
+const $=s=>document.querySelector(s);
+
+function render(){
+  $('#vBench').setAttribute('aria-pressed',S.view==='bench');$('#vSlip').setAttribute('aria-pressed',S.view==='slip');
+  $('#app').innerHTML=S.view==='bench'?(EX[S.ex].kind==='page'?pageHTML():benchHTML()):S.view==='slip'?slipHTML():S.view==='verify'?verifyHTML():keysHTML();
+  renderHand();
+}
+
+/* ---------- Completion slip ----------
+   The code mixes the name, score, total, and date with a phrase kept in this page. Editing any part of a slip breaks its code.
+   It stops casual copying and editing; someone who reads this source could forge one. */
+const SALT='sabine-pass-ferry-1897-xxiii-iv';
+const MON=['Jan.','Feb.','Mar.','Apr.','May','June','July','Aug.','Sept.','Oct.','Nov.','Dec.'];
+function today(){const d=new Date();return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()}
+function normName(n){return String(n).trim().replace(/\s+/g,' ').toLowerCase()}
+function cyrb53(str,seed=0){let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0;i<str.length;i++){const ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}
+  h1=Math.imul(h1^(h1>>>16),2246822507);h1^=Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507);h2^=Math.imul(h1^(h1>>>13),3266489909);return 4294967296*(2097151&h2)+(h1>>>0)}
+function slipCode(name,n,total,date){
+  const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let x=cyrb53(SALT+'|'+normName(name)+'|'+n+'/'+total+'|'+date.trim(),7),s='';
+  for(let i=0;i<8;i++){s+=A[x%32];x=Math.floor(x/32)}
+  return s.slice(0,4)+'-'+s.slice(4);
+}
+function slipLine(name){const n=S.done.size,t=EX.length,d=today();return `Core Elements · ${name.trim()} · ${n}/${t} · ${d} · ${slipCode(name,n,t,d)}`}
+function slipHTML(){
+  const n=S.done.size,t=EX.length,name=S.name||'';
+  const list=EX.map((e,i)=>`<li style="display:flex;gap:8px;align-items:baseline"><span style="font-family:var(--f-type);color:${S.done.has(i)?'var(--ok)':'var(--muted)'}">${S.done.has(i)?'✓':'·'}</span><button class="linkbtn" data-go="${i}" style="text-align:left">${i+1}. ${esc(e.name)}</button></li>`).join('');
+  return `<div class="grid" style="margin-top:18px"><section class="prose"><span class="label">Your progress</span><h2 style="font-family:var(--f-book);font-weight:400;margin:4px 0 10px">${n} of ${t} exercises correct</h2><p>An exercise counts once you get it right, however many tries it takes. Progress is saved in this browser on this device, so finish on the same device you started on.</p><ol style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px">${list}</ol></section>
+  <section class="panel ctl"><div><label class="label" for="stuName">Your name, as it appears in D2L</label><input id="stuName" value="${esc(name)}" autocomplete="name" style="font:inherit;width:100%;margin-top:6px;padding:10px;border:1px solid var(--rule);border-radius:3px;background:var(--well);color:var(--ink)"></div>
+  <div><div class="label">Your slip</div><div class="slip" style="margin-top:6px"><div class="hang" id="slipText" style="margin-top:4px;padding-left:0;text-indent:0">${name.trim()?esc(slipLine(name)):'<span class="empty">Type your name to make your slip.</span>'}</div></div></div>
+  <div class="actions"><button class="btn" id="copySlip">Copy the slip</button></div><p class="sub" id="copyMsg" style="margin:0">Paste the whole line into the D2L assignment. Don’t edit it: any change breaks the code.</p></section></div>`;
+}
+function verifyHTML(){
+  return `<div class="prose" style="margin-top:18px"><span class="label">For the instructor</span><h2 style="font-family:var(--f-book);font-weight:400;margin:4px 0 10px">Check completion slips</h2><p>Paste one slip or a whole column of them, copied from D2L. Each slip is checked against its own name, score, and date.</p>
+  <textarea id="verifyIn" rows="8" style="font-family:var(--f-type);font-size:.9rem;width:100%;padding:10px;border:1px solid var(--rule);border-radius:3px;background:var(--well);color:var(--ink)">${esc(S.verifyIn||'')}</textarea>
+  <div class="actions" style="margin:10px 0"><button class="btn" id="verifyGo">Check slips</button></div><div id="verifyOut">${S.verifyOut||''}</div></div>`;
+}
+function verifySlips(text){
+  const re=/Core Elements\s*[·•|]\s*(.+?)\s*[·•|]\s*(\d+)\s*\/\s*(\d+)\s*[·•|]\s*(.+?)\s*[·•|]\s*([A-Z0-9]{4}-[A-Z0-9]{4})/gi;const rows=[];let m;
+  while((m=re.exec(text))){const [,name,n,t,date,code]=m;const ok=slipCode(name,+n,+t,date)===code.toUpperCase();rows.push({name,n:+n,t:+t,date,ok})}
+  if(!rows.length)return '<p>No slips found. A slip looks like: Core Elements · Name · 20/20 · 12 Oct. 2026 · ABCD-EFGH</p>';
+  return '<ul class="corr">'+rows.map(r=>`<li style="border-left-color:${r.ok?'var(--ok)':'var(--stamp)'}"><b style="color:${r.ok?'var(--ok)':'var(--stamp)'}">${r.ok?'Valid':'Does not match'}</b>${esc(r.name)} · ${r.n}/${r.t}${r.ok&&r.t!==EX.length?' (made with an older set of '+r.t+' exercises)':''}${r.ok&&r.n<r.t?' · not finished':''} · ${esc(r.date)}</li>`).join('')+'</ul>';
+}
+function route(){const h=location.hash.replace('#','');S.view=h==='desk-key-sfa'?'keys':h==='desk-verify-sfa'?'verify':S.view==='keys'||S.view==='verify'?'bench':S.view;S.hand=null}
+function stripHTML(){return '<nav class="strip" aria-label="Exercises">'+EX.map((e,i)=>`<button data-go="${i}" aria-current="${i===S.ex}" class="${S.done.has(i)?'done':''}" title="${esc(e.name)}">${i+1}</button>`).join('')+'</nav>'}
+function headHTML(ex,how){return `<div class="task"><span class="label">Exercise ${S.ex+1} of ${EX.length}</span><h2>${esc(ex.name)}</h2><div>${esc(ex.task)} ${how}</div></div><div class="desk"><b>The reference desk</b>${esc(ex.desk)}</div>`}
+function resultHTML(n,list,extra){
+  let h=`<div class="proof" aria-live="polite"><div class="stampline"><span class="stamp ${n?'dirty':'clean'}">${n?n+' to fix':'Correct'}</span><span class="desk" style="margin:0;border:0;padding:0">${n?'Fix the marked items and check again.':'Ready to hand in.'}</span></div>`;
+  if(n)h+='<ul class="corr">'+list.map(m=>`<li><b>${esc(m.h)}</b>${esc(m.b)}</li>`).join('')+'</ul>';
+  return h+(extra||'')+'</div>';
+}
+function actionsHTML(){return `<div class="actions"><button class="btn" id="pull">Check my work</button><button class="btn ghost" id="clear">Start over</button>${S.ex<EX.length-1?'<button class="btn ghost" id="next">Next exercise</button>':''}</div>`}
+function benchHTML(){
+  const ex=EX[S.ex],entry=S.entries[S.ex];
+  const used=new Set(Object.values(entry).map(v=>v.s));
+  const cls={tp:'leaf tp',verso:'leaf verso',jpage:'leaf jpage',web:'leaf web',db:'leaf db',film:'leaf film',yt:'leaf yt'};
+  const leaves=ex.leaves.map(l=>`<div class="${cls[l.k]||'leaf'}"><span class="tag">${esc(l.tag)}</span>${l.h}${l.note?'<div class="note">'+l.note+'</div>':''}</div>`).join('')
+    .replace(/class="s" data-s="(\w+)"/g,(m,id)=>`class="s${S.hand===id?' held':''}${used.has(id)?' used':''}" data-s="${id}" role="button" tabindex="0"`);
+  const res=S.proof;
+  const bad=new Set(res?res.errs.map(e=>e.p):[]);
+  const slot=p=>{
+    const v=entry[p];const isTitle=TITLED.has(p);
+    const c='cell'+(v?' filled':'')+(S.hand&&!v?' target':'')+(res&&bad.has(p)?' bad':'')+(res&&v&&!bad.has(p)?' good':'');
+    const body=v?segsHTML(unitSegs(ex,p,v,v.pu||'',!!v.cap)):`<span class="ph">${S.hand?'Place it here':'empty'}</span>`;
+    let opts='';
+    if(S.open===p&&v){
+      const sort=ex.sorts[v.s];const lower=startsLower(formText(ex,v));
+      opts=`<div class="opts"><div class="label">Write it as</div><div class="row">${sort.f.map((f,i)=>`<button class="chip" data-form="${i}" aria-pressed="${v.f===i}">${chipHTML(f.t)}</button>`).join('')}</div>`+
+      (isTitle?`<div class="label">Title styling</div><div class="row"><button class="chip plain" data-st="i" aria-pressed="${v.st==='i'}"><i>Italics</i></button><button class="chip plain" data-st="q" aria-pressed="${v.st==='q'}">“Quotation marks”</button><button class="chip plain" data-st="r" aria-pressed="${!v.st||v.st==='r'}">Plain</button></div>`:'')+
+      (lower?`<div class="label">First letter</div><div class="row"><button class="chip plain" data-cap="0" aria-pressed="${!v.cap}">lowercase</button><button class="chip plain" data-cap="1" aria-pressed="${!!v.cap}">Capital</button></div>`:'')+
+      `<div class="label">Followed by</div><div class="row"><button class="chip" data-pu="." aria-pressed="${v.pu==='.'}">period .</button><button class="chip" data-pu="," aria-pressed="${v.pu===','}">comma ,</button><button class="chip plain" data-pu="" aria-pressed="${!v.pu}">nothing</button></div>`+
+      `<div class="row"><button class="linkbtn" data-rm="${p}">Remove</button></div></div>`;
+    }
+    return `<div class="slot"><div class="nm"><span>${esc(NAME[p].replace(' (2nd container)',''))}</span></div><button class="${c}" data-slot="${p}" aria-label="${esc(NAME[p])}">${body}</button>${opts}</div>`;
+  };
+  const group=(title,paths)=>`<div class="group"><h4><span>${title}</span></h4><div class="slots">${paths.map(slot).join('')}</div></div>`;
+  const showC2=S.c2||CEL.some(e=>entry['c2.'+e]);
+  const segs=assemble(ex,entry);
+  let proof='';
+  if(res){
+    const n=res.errs.length;let extra='';
+    if(n&&!S.collate)extra=`<div><button class="btn ghost" id="collate">Compare with the correct entry</button></div>`;
+    if(S.collate||!n){
+      const a=tokens(segs),b=tokens(assembleKey(ex,keyEntryFor(res.key,entry)));
+      const ops=diff(a,b);
+      const yours=ops.filter(o=>o[0]!=='+').map(o=>tokHTML(o[1],o[0]==='-'?'x':'')).join('');
+      const copy=ops.filter(o=>o[0]!=='-').map(o=>tokHTML(o[0]==='='?o[2]:o[1],o[0]==='+'?'a':'')).join('');
+      extra+=n?`<div class="coll"><div class="w"><span>Yours</span><div>${yours}</div></div><div class="w"><span>Correct</span><div>${copy}</div></div></div><p class="sub" style="margin:0">Struck through: only in your entry. Underlined: what the correct entry has instead.</p>`:`<div class="coll"><div class="w"><span>Entry</span><div>${copy}</div></div></div>`;
+    }
+    proof=resultHTML(n,res.errs.map(e=>message(ex,res.key,e)),extra);
+  }
+  return stripHTML()+`<div class="grid"><section>${headHTML(ex,'Tap a piece of the source, then tap the element where it belongs. Tap a filled element to choose how it is written and what punctuation follows it.')}<div class="bench">${leaves}</div></section>
+  <section class="panel stick" aria-label="Template of core elements">
+   ${group('Source',['au','ti'])}
+   ${group('Container',CEL.map(e=>'c1.'+e))}
+   ${showC2?group('Second container',CEL.map(e=>'c2.'+e)):`<div><button class="linkbtn" id="addc2">+ Add a second container (a database or platform)</button></div>`}
+   ${group('Optional elements',['od','ac'])}
+   <div class="slip"><div class="hd">Works Cited</div><div class="hang">${segs.length?segsHTML(segs):'<span class="empty">Your entry builds here as you fill in the template.</span>'}</div></div>
+   ${actionsHTML()}${proof}
+  </section></div>`;
+}
+function pageHTML(){
+  const ex=EX[S.ex],st=S.entries[S.ex];const ents=pageEntries(ex);
+  const o=k=>ex.ctl.find(c=>c.id===k).opts[st[k]];
+  const rh=['',`<div class="rh r">${ex.last} ${ex.pageNo}</div>`,`<div class="rh l">${ex.last} ${ex.pageNo}</div>`,`<div class="rh r">Page ${ex.pageNo}</div>`,`<div class="rh r">${ex.last}, p. ${ex.pageNo}</div>`][st.rh];
+  const hs=['','font-weight:700;','font-style:italic;','text-decoration:underline;','text-transform:uppercase;'][st.hstyle];
+  const lh=st.spacing?2:1.25;
+  const ind=['','text-indent:.5in;','padding-left:.5in;text-indent:-.5in;'][st.indent];
+  const gap=st.gap===0?`margin-bottom:${lh}em;`:'';
+  const paper=`<div class="paperwrap"><div class="paper">${rh}<h5 style="${hs}text-align:${st.halign?'center':'left'};line-height:${lh}">${esc(o('htext'))}</h5>${st.order.map(i=>`<p class="entry" style="line-height:${lh};${ind}${gap}">${segsHTML(ents[i])}</p>`).join('')}</div></div>`;
+  const res=S.proof;
+  const ctl=ex.ctl.map(c=>`<div><div class="label">${esc(c.label)}</div><div class="row">${c.opts.map((x,i)=>`<button class="chip plain" data-pg="${c.id}" data-v="${i}" aria-pressed="${st[c.id]===i}">${esc(x)}</button>`).join('')}</div></div>`).join('');
+  const ord=`<div><div class="label">Order of entries</div><ol class="order">${st.order.map((i,k)=>`<li><span>${segsHTML(ents[i])}</span><button data-mv="${k}" data-d="-1" aria-label="Move up" ${k===0?'disabled':''}>↑</button><button data-mv="${k}" data-d="1" aria-label="Move down" ${k===st.order.length-1?'disabled':''}>↓</button></li>`).join('')}</ol></div>`;
+  return stripHTML()+`<div class="grid"><section>${headHTML(ex,'Change the settings on the right and watch the page.')}${paper}</section><section class="panel ctl">${ctl}${ord}${actionsHTML()}${res?resultHTML(res.errs.length,res.errs):''}</section></div>`;
+}
+function keysHTML(){
+  return `<div class="keys"><div class="prose"><h2 style="font-family:var(--f-book);font-weight:400">Key sheet</h2><p>Every entry the checker accepts, generated by the same code that grades students, punctuation and capitals included. Proof these against the <i>MLA Handbook</i> before the tool goes to a class. Notes mark the places where a judgment call was made.</p><p>Rules taken from the Purdue OWL MLA pages (<a href="https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_formatting_and_style_guide.html" target="_blank" rel="noopener">overview</a>, <a href="https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_works_cited_page_books.html" target="_blank" rel="noopener">books</a>, <a href="https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_works_cited_electronic_sources.html" target="_blank" rel="noopener">electronic sources</a>, <a href="https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_works_cited_other_common_sources.html" target="_blank" rel="noopener">other sources</a>, <a href="https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_abbreviations.html" target="_blank" rel="noopener">abbreviations</a>, <a href="https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_works_cited_page_basic_format.html" target="_blank" rel="noopener">Works Cited format</a>, <a href="https://owl.purdue.edu/owl/research_and_citation/mla_style/mla_formatting_and_style_guide/mla_general_format.html" target="_blank" rel="noopener">general format</a>) and the MLA Style Center (<a href="https://style.mla.org/page-range-and-doi/" target="_blank" rel="noopener">page range and DOI</a>, <a href="https://style.mla.org/urls-some-practical-advice/" target="_blank" rel="noopener">URLs</a>, <a href="https://style.mla.org/italics-quote-marks-book-titles/" target="_blank" rel="noopener">titles within titles</a>, <a href="https://style.mla.org/closer-look-at-mla-style/" target="_blank" rel="noopener">a closer look</a>, <a href="https://style.mla.org/works-cited/citations-by-format/movies-videos-and-television-shows/" target="_blank" rel="noopener">films and videos</a>). Where the OWL’s own examples disagree with each other, the MLA Style Center wins. All sources are invented for practice.</p></div>`+
+  EX.map((ex,i)=>{
+    if(ex.kind==='page'){const ents=pageEntries(ex);const want=checkPage(ex,{...ex.start}).want;
+      return `<article><span class="label">Exercise ${i+1}</span><h3>${esc(ex.name)}</h3>${ex.ctl.map(c=>`<p style="margin:2px 0"><b>${esc(c.label)}:</b> ${esc(c.opts[c.key])}</p>`).join('')}<p style="margin:10px 0 2px"><b>Order:</b></p>${want.map(k=>`<p class="ent">${segsHTML(ents[k])}</p>`).join('')}</article>`}
+    const all=[];ex.keys.forEach(k=>expandKey(k).forEach(e=>all.push(segsHTML(assembleKey(ex,e)))));
+    return `<article><span class="label">Exercise ${i+1}</span><h3>${esc(ex.name)}</h3>${[...new Set(all)].map(h=>`<p class="ent">${h}</p>`).join('')}${ex.flag?`<div class="flag">${esc(ex.flag)}</div>`:''}</article>`;
+  }).join('')+'</div>';
+}
+function renderHand(){
+  const h=$('#hand');
+  if(S.view!=='bench'||!S.hand){h.hidden=true;return}
+  const s=EX[S.ex].sorts[S.hand];
+  h.hidden=false;h.innerHTML=`<span>Selected</span><q>${esc(plainOf(s.f[0].t))}</q><span>Tap the element where it belongs.</span><button id="drop">Cancel</button>`;
+}
+function saveDone(){store.set({done:[...S.done],name:S.name||''})}
+function reset(){S.hand=null;S.open=null;S.proof=null;S.collate=false;S.c2=false}
+
+document.addEventListener('click',ev=>{
+  const t=ev.target.closest('button,[data-s]');if(!t)return;
+  const ex=EX[S.ex],entry=S.entries[S.ex];
+  if(t.id==='vBench'){S.view='bench';S.hand=null;return render()}
+  if(t.id==='vSlip'){S.view='slip';S.hand=null;return render()}
+  if(t.id==='copySlip'){const txt=S.name&&S.name.trim()?slipLine(S.name):'';const msg=$('#copyMsg');
+    if(!txt){msg.textContent='Type your name first.';return}
+    const sel=()=>{const r=document.createRange();r.selectNodeContents($('#slipText'));const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent='Selected. Copy it with your device’s Copy command.'};
+    try{navigator.clipboard.writeText(txt).then(()=>{msg.textContent='Copied. Paste it into the D2L assignment.'},sel)}catch(e){sel()}
+    return}
+  if(t.id==='verifyGo'){S.verifyIn=$('#verifyIn').value;S.verifyOut=verifySlips(S.verifyIn);return render()}
+  if(t.id==='drop'){S.hand=null;return render()}
+  if(t.dataset.go!=null){S.ex=+t.dataset.go;S.view='bench';reset();render();window.scrollTo({top:0});return}
+  if(t.id==='next'){S.ex++;reset();render();window.scrollTo({top:0});return}
+  if(t.id==='clear'){S.entries[S.ex]=ex.kind==='page'?JSON.parse(JSON.stringify(ex.start)):{};reset();return render()}
+  if(ex.kind==='page'){
+    if(t.dataset.pg){entry[t.dataset.pg]=+t.dataset.v;S.proof=null;return render()}
+    if(t.dataset.mv!=null){const k=+t.dataset.mv,d=+t.dataset.d,o=entry.order;[o[k],o[k+d]]=[o[k+d],o[k]];S.proof=null;return render()}
+    if(t.id==='pull'){S.proof=checkPage(ex,entry);if(!S.proof.errs.length){S.done.add(S.ex);saveDone()}return render()}
+    return;
+  }
+  if(t.dataset.s){S.hand=S.hand===t.dataset.s?null:t.dataset.s;S.open=null;return render()}
+  if(t.dataset.slot){
+    const p=t.dataset.slot;
+    if(S.hand){
+      for(const q in entry)if(entry[q].s===S.hand)delete entry[q];
+      entry[p]={s:S.hand,f:0,st:'r',pu:'',cap:false};S.hand=null;S.open=p;S.proof=null;S.collate=false;
+    }else if(entry[p])S.open=S.open===p?null:p;
+    return render();
+  }
+  const ch=()=>{S.proof=null;S.collate=false;render()};
+  if(t.dataset.form!=null&&S.open){entry[S.open].f=+t.dataset.form;return ch()}
+  if(t.dataset.st&&S.open){entry[S.open].st=t.dataset.st;return ch()}
+  if(t.dataset.pu!=null&&S.open){entry[S.open].pu=t.dataset.pu;return ch()}
+  if(t.dataset.cap!=null&&S.open){entry[S.open].cap=t.dataset.cap==='1';return ch()}
+  if(t.dataset.rm){delete entry[t.dataset.rm];S.open=null;return ch()}
+  if(t.id==='addc2'){S.c2=true;return render()}
+  if(t.id==='pull'){S.proof=check(ex,entry);S.open=null;S.collate=false;if(!S.proof.errs.length){S.done.add(S.ex);saveDone()}return render()}
+  if(t.id==='collate'){S.collate=true;return render()}
+});
+document.addEventListener('keydown',ev=>{const t=ev.target;if(t.dataset&&t.dataset.s&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();t.click()}});
+document.addEventListener('input',ev=>{if(ev.target.id==='stuName'){S.name=ev.target.value;store.set({done:[...S.done],name:S.name});const el=$('#slipText');if(el)el.innerHTML=S.name.trim()?esc(slipLine(S.name)):'<span class="empty">Type your name to make your slip.</span>'}});
+window.addEventListener('hashchange',()=>{route();render()});
+S.name=store.get().name||'';
+if(typeof document!=='undefined'&&document.getElementById('app')){route();render()}
+</script>
+
+</body></html>
