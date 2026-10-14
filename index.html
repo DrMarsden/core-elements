@@ -130,6 +130,35 @@ h1{font-family:var(--f-display);font-weight:400;font-size:2.4rem;line-height:1;m
 .hand q{font-family:var(--f-type);quotes:none;background:var(--hl);color:var(--ink);padding:2px 8px;border-radius:2px}
 .hand button{font:inherit;background:transparent;color:var(--bg);border:1px solid currentColor;border-radius:3px;padding:4px 12px;cursor:pointer}
 .keys{display:flex;flex-direction:column;gap:18px;max-width:900px}
+.guide{display:grid;grid-template-columns:15rem minmax(0,1fr);gap:28px;align-items:start;margin-top:18px}
+@media (max-width:760px){.guide{grid-template-columns:minmax(0,1fr)}}
+.grail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:flex;flex-direction:column;gap:12px}
+@media (max-width:760px){.grail{position:static;order:2}}
+.grail ol,.grail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.grail ol{counter-reset:el}
+.grail button{font:inherit;width:100%;display:flex;justify-content:space-between;gap:8px;align-items:baseline;text-align:left;background:transparent;border:0;border-left:3px solid transparent;color:var(--ink);padding:6px 10px;cursor:pointer;font-size:.92rem}
+.grail ol button{font-family:var(--f-book)}
+.grail button em{font-style:normal;font-family:var(--f-type);font-weight:700;color:var(--accent)}
+.grail button[aria-current="true"]{border-left-color:var(--accent);background:var(--card)}
+.grail button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.grail ul button{font-size:.84rem;color:var(--muted)}
+.grail ul button[aria-current="true"]{color:var(--ink)}
+.gcard{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:22px 24px;min-width:0;max-width:52rem}
+.gcard h2{font-family:var(--f-book);font-weight:400;font-size:1.7rem;margin:4px 0 12px;text-wrap:balance}
+.gcard h4{margin:20px 0 8px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.gcard p,.gcard li{max-width:66ch}
+.gcard ul{padding-left:1.2em;display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.gex{background:var(--leaf);color:var(--leaf-ink);border-radius:2px;padding:10px 14px 12px;margin:8px 0;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.gex .label{color:#6e6858}
+.gent{font-family:var(--f-book);font-size:1rem;line-height:1.65;margin:4px 0 0;padding-left:2em;text-indent:-2em;overflow-wrap:anywhere}
+.gent mark{background:#f3dc8a;color:#2a2520;padding:1px 2px;border-radius:2px;box-shadow:0 0 0 1px #d9be5f}
+.gent .pm{color:#b0281d;font-weight:700;background:rgba(176,40,29,.12);padding:0 2px;border-radius:2px}
+.gin{font-family:var(--f-book);background:var(--well);padding:1px 6px;border-radius:2px;white-space:nowrap}
+.anat{display:flex;flex-direction:column;gap:4px;margin:12px 0}
+.anat div{display:grid;grid-template-columns:11rem minmax(0,1fr);gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--rule)}
+@media (max-width:480px){.anat div{grid-template-columns:minmax(0,1fr)}}
+.gnav{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:24px;padding-top:16px;border-top:1px solid var(--rule)}
+.gnav .btn:disabled{opacity:.4;cursor:default}
 .keys article{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:16px 18px}
 .keys h3{font-family:var(--f-book);font-weight:400;font-size:1.2rem;margin:0 0 8px}
 .keys .ent{font-family:var(--f-book);padding-left:2em;text-indent:-2em;margin:4px 0}
@@ -174,6 +203,7 @@ h1{font-family:var(--f-display);font-weight:400;font-size:2.4rem;line-height:1;m
       <p class="sub">Build an MLA 9 works-cited entry from the source in front of you, one core element at a time. Vibe-coded by Steve Marsden and Claude.</p>
     </div>
     <div class="views" role="group" aria-label="View">
+      <button id="vGuide" aria-pressed="false">Guide</button>
       <button id="vBench" aria-pressed="true">Practice</button>
       <button id="vSlip" aria-pressed="false">Completion slip</button>
     </div>
@@ -511,6 +541,44 @@ const EX=[
  why:{ti:'What part of the book are you citing?','c1.ti':'The book that holds the introduction.','c1.co':'Who wrote the book itself?','c1.pg':'Which pages does the introduction occupy?'},
  flag:'Modeled on the OWL’s introduction entry (Duncan, Introduction, Permanence and Change, pp. xiii-xliv). Roman page numbers kept and given in full.'},
 
+{name:'A song on a streaming service',task:'Cite the song you streamed.',
+ desk:'A song lives on an album, and the album lives on the streaming service. Two containers. And a band’s name is not a person’s name.',
+ leaves:[
+ {k:'web',tag:'Streaming player',h:`<div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url"><span class="s" data-s="url">https://open.spotify.com/track/4kQx9ZrT2bLw7YpN1sVh3c</span></span></div><div class="site"><span class="s" data-s="sp">Spotify</span></div><article><div class="meta" style="letter-spacing:.12em"><span class="s" data-s="ct">LOW WATER HYMNS</span> · <span class="s" data-s="tn">Track 4</span></div><h3><span class="s" data-s="ti">lantern hill</span></h3><div class="meta"><b><span class="s" data-s="au">Sawmill Choir</span></b> · <span class="s" data-s="da">2019</span> · 3:47 · <span class="s" data-s="pc">1,882,410 plays</span></div><p style="font-size:.82rem"><span class="s" data-s="wr">Written by Josie Vance</span></p></article><footer><span class="s" data-s="pu">℗ 2019 Red Dirt Records LLC</span></footer>`}],
+ sorts:{
+  au:{f:['Sawmill Choir',['Choir, Sawmill','A band’s name is not a person’s name, so it isn’t inverted.']]},
+  ti:{f:[['lantern hill','MLA puts every title in title case, even when the artist styles it in lowercase.'],'Lantern Hill']},
+  ct:{f:[['LOW WATER HYMNS',CAPS],'Low Water Hymns']},
+  pu:{f:[['℗ 2019 Red Dirt Records LLC','Give just the label, without the ℗, the year, or business words like LLC.'],['Red Dirt Records LLC','Drop business words like LLC.'],'Red Dirt Records']},
+  da:{f:['2019']},
+  sp:{f:['Spotify']},
+  url:{f:[['https://open.spotify.com/track/4kQx9ZrT2bLw7YpN1sVh3c',NOPROTO],'open.spotify.com/track/4kQx9ZrT2bLw7YpN1sVh3c']},
+  tn:{f:['Track 4'],no:'A track number doesn’t help a reader find the song. The album and the URL do.'},
+  pc:{f:['1,882,410 plays'],no:'Play counts change daily and aren’t part of a citation.'},
+  wr:{f:['Written by Josie Vance'],no:'Name the songwriter only when the writing is what you are discussing. You are citing the band’s recording.'}},
+ keys:[{au:['au',0],ti:['ti',1,'q'],'c1.ti':['ct',1,'i'],'c1.pu':['pu',2],'c1.da':['da',0],'c2.ti':['sp',0,'i'],'c2.lo':['url',1]}],
+ why:{'c1.ti':'What album is the song on?','c1.pu':'Which record label released the album?','c2.ti':'Where did you listen to it? The streaming service is a second container.','c2.lo':'The track’s address.'},
+ flag:'Album as the first container and Spotify as the second, following the OWL’s Spotify example (Morris, “Skin,” Cold). An MLA Style Center post marked as eighth-edition content names only the platform; this tool keeps the album, as it keeps the film before YouTube.'},
+
+{name:'A TV episode on a streaming service',task:'Cite the episode you watched.',
+ desk:'The episode is the source. The series is its container, with the season and episode numbers. The streaming service is a second container.',
+ leaves:[
+ {k:'web',tag:'Streaming page',h:`<div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url"><span class="s" data-s="url">https://www.netflix.com/watch/81045529</span></span></div><div class="site" style="background:#141414;color:#e9e3d4;border-bottom:0"><span class="s" data-s="nf">NETFLIX</span></div><article style="background:#1d1d1d;color:#e9e3d4"><div style="font-family:var(--f-display);font-size:1.6rem;letter-spacing:.14em"><span class="s" data-s="ct">BAYOU COUNTY</span></div><div class="meta" style="color:#bdb6a6"><span class="s" data-s="rt">TV-14</span> · <span class="s" data-s="nu">Season 2 · Episode 5</span> · 52m</div><h3 style="color:#e9e3d4"><span class="s" data-s="ti">E5 · The Drowned Choir</span></h3><p style="color:#d6cfbf">A flood uncovers a church the parish swore it tore down. Sheriff Dumont follows the hymn-singing upriver.</p><p style="font-size:.8rem;color:#bdb6a6"><span class="s" data-s="cr">Created by Marcus Dell</span> · <span class="s" data-s="st">Starring Lena Brooks</span><br>Originally aired on <span class="s" data-s="pu">Lone Star Network</span>, <span class="s" data-s="da">October 12, 2018</span></p></article>`}],
+ sorts:{
+  ti:{f:[['E5 · The Drowned Choir','Give just the episode’s title. Its number goes in the Number element.'],'The Drowned Choir']},
+  ct:{f:[['BAYOU COUNTY',CAPS],'Bayou County']},
+  nu:{f:[['Season 2 · Episode 5','Lowercase, with a comma between: season 2, episode 5.'],['S2:E5','Spell it out: season 2, episode 5.'],'season 2, episode 5']},
+  pu:{f:['Lone Star Network']},
+  da:{f:[['October 12, 2018','Day, then month, then year, with the month abbreviated: 12 Oct. 2018.'],'12 Oct. 2018']},
+  cr:{f:[['Created by Marcus Dell','Use the role phrase in lowercase after a comma: created by Marcus Dell.'],'created by Marcus Dell']},
+  nf:{f:[['NETFLIX',CAPS],'Netflix']},
+  url:{f:[['https://www.netflix.com/watch/81045529',NOPROTO],'www.netflix.com/watch/81045529']},
+  rt:{f:['TV-14'],no:'A content rating isn’t part of a citation.'},
+  st:{f:['Starring Lena Brooks'],no:'Name a performer only when the performance is what you are writing about.'}},
+ keys:[{ti:['ti',1,'q'],'c1.ti':['ct',1,'i'],'c1.co':['cr',1,null,1],'c1.nu':['nu',2],'c1.pu':['pu',0],'c1.da':['da',1],'c2.ti':['nf',1,'i'],'c2.lo':['url',1]}],
+ why:{'c1.ti':'What series is the episode part of?','c1.nu':'Which season and episode?','c1.pu':'Which network aired it?','c1.da':'When did it first air?','c2.ti':'Where did you watch it? The streaming service is a second container.','c2.lo':'The episode’s address.'},
+ flag:'Follows the OWL’s Netflix example (“94 Meetings,” Parks and Recreation): network and air date in the first container, the streaming service as the second. The creator is accepted as optional, as in the OWL’s fuller version of the same entry.'},
+
 {kind:'page',name:'The Works Cited page',task:'Format the list.',
  desk:'Six finished entries, set badly. Fix the page: heading, spacing, indent, order, and the header that runs on every page of the paper.',
  entries:[[0,0],[10,0],[5,0],[16,0],[1,0],[8,0]],
@@ -625,7 +693,7 @@ function message(ex,key,e){
     return{h:slotName(e.p)+': '+label(sid),b};
   }
   if(e.type==='form'){const n=sorts[e.v.s].f[e.v.f].n;return{h:slotName(e.p)+': right information, wrong form',b:n||'Write it in a different form here.'}}
-  if(e.type==='style')return{h:slotName(e.p)+': title styling',b:e.k.st==='r'?'A plain section label like Introduction, Preface, Foreword, or Afterword takes neither italics nor quotation marks.':e.k.st==='i'?'This title stands on its own (a book, journal, website, film, or platform), so it is set in italics, however the source prints it.':'This title is part of a larger whole, so it goes in quotation marks, however the source prints it.'};
+  if(e.type==='style')return{h:slotName(e.p)+': title styling',b:e.k.st==='r'?'A plain section label like Introduction, Preface, Foreword, or Afterword takes neither italics nor quotation marks.':e.k.st==='i'?'This title stands on its own (a book, journal, website, film, album, TV series, or platform), so it is set in italics, however the source prints it.':'This title is part of a larger whole, so it goes in quotation marks, however the source prints it.'};
   if(e.type==='punct'){
     const x=e.x.pu,c=coreLast(ex,e.p,e.v),p=e.p;let b;
     if(x===''&&c==='.')b='This element already ends with a period, and MLA doesn’t double it. Add nothing after it.';
@@ -700,9 +768,210 @@ const store={get(){try{return JSON.parse(localStorage.getItem('core-elements-v2'
 const S={view:'bench',ex:0,entries:EX.map(ex=>ex.kind==='page'?JSON.parse(JSON.stringify(ex.start)):{}),hand:null,open:null,proof:null,collate:false,c2:false,done:new Set(store.get().done||[])};
 const $=s=>document.querySelector(s);
 
+/* ---------- The guide: a walk through the template. Its examples are invented sources of their own, separate from the exercises,
+   built by the same code as the answer keys so their punctuation follows the same rules. ---------- */
+function mk(k,k2){const sorts={};const keys=[k,k2].filter(Boolean).map(kk=>{const o={};for(const p in kk){const v=kk[p];const [t,st,opt]=Array.isArray(v)?v:[v];
+  sorts[t]={f:[{t}]};o[p]={s:t,f:[0],st:st||null,opt:!!opt}}return o});return{sorts,keys}}
+const G={
+ book:mk({au:'Ashby, Theodora',ti:['The Cotton Gin and the Ghost: Haunted Industry in the Old South','i'],'c1.pu':'Pecan Bayou UP','c1.da':'2018'}),
+ two:mk({au:'Mercer, Paul, and Hana Ito',ti:['Reading the American Frontier','i'],'c1.ve':'2nd ed.','c1.pu':'Longleaf Press','c1.da':'2020'}),
+ three:mk({au:'Quintero, Elena, et al.',ti:['Swamp Lights: Folklore of the Gulf Coast','i'],'c1.pu':'U of Sabine P','c1.da':'2015'}),
+ film:mk({ti:['The Widow’s Lantern','i'],'c1.co':'directed by Owen Hale','c1.pu':'Bayou Pictures','c1.da':'1958'}),
+ filmd:mk({au:'Hale, Owen, director',ti:['The Widow’s Lantern','i'],'c1.pu':'Bayou Pictures','c1.da':'1958'}),
+ story:mk({au:'Pruitt, Abigail',ti:['The Well House','q'],'c1.ti':['Night Voices: Southern Ghost Stories','i'],'c1.co':'edited by Daniel Okoro','c1.pu':'Magnolia House','c1.da':'2012','c1.pg':'pp. 54-71'}),
+ trans:mk({au:'Lindgren, Maja',ti:['The Salt Bride','i'],od:['1994',null,1],'c1.co':'translated by Erik Shaw','c1.pu':'Harbor Light Books','c1.da':'2019'}),
+ journal:mk({au:'Ruiz, Daniel',ti:['Mapping the Uncanny in Hawthorne’s Salem','q'],'c1.ti':['New England Gothic Studies','i'],'c1.nu':'vol. 12, no. 3','c1.da':'2017','c1.pg':'pp. 211-34'}),
+ roman:mk({au:'Pell, Agnes',ti:['Folk Remedies of the Red River Valley','q'],'c1.ti':['Southern Historical Monthly','i'],'c1.nu':'vol. 14, no. 9','c1.da':'1903','c1.pg':'pp. 88-97'}),
+ jstor:mk({au:'Bell, Marcus',ti:['Poe’s Unreliable Rooms','q'],'c1.ti':['Arkansas Review of Letters','i'],'c1.nu':'vol. 22, no. 2','c1.da':'2011','c1.pg':'pp. 145-62','c2.ti':['JSTOR','i'],'c2.lo':'www.jstor.org/stable/2290118'}),
+ doi:mk({au:'Hayes, Rowan',ti:['Folk Horror and the Small Town','q'],'c1.ti':['Rural Studies Review','i'],'c1.nu':'vol. 5, no. 1','c1.da':'2022','c1.lo':'https://doi.org/10.5555/rsr.2022.0105'}),
+ web:mk({au:'Tran, Linh',ti:['Why We Tell Ghost Stories in October','q'],'c1.ti':['The Hearthside Review','i'],'c1.pu':'Lone Pine Arts Council','c1.da':'28 Oct. 2024','c1.lo':'www.hearthsidereview.org/essays/why-ghost-stories',ac:['Accessed 1 Nov. 2026',null,1]}),
+ self:mk({au:'Burke, Sam',ti:['Restoring the Old Depot','q'],'c1.ti':['Pine Hollow Preservation League','i'],'c1.da':'9 June 2023','c1.lo':'www.pinehollowleague.org/news/old-depot'}),
+ news:mk({au:'Moreno, Jo',ti:['Storm Topples Century-Old Oak on Courthouse Square','q'],'c1.ti':['Sabine County Herald','i'],'c1.da':'17 Apr. 2025','c1.lo':'www.sabinecountyherald.com/news/2025/04/17/courthouse-oak'}),
+ tit1:mk({au:'Ward, Ellis',ti:['Silence and Guilt in _The Scarlet Letter_','q'],'c1.ti':['Puritan Studies Quarterly','i'],'c1.nu':'vol. 9, no. 4','c1.da':'2014','c1.pg':'pp. 12-30'}),
+ tit2:mk({au:'Cole, Maren',ti:['Grief and Repetition in ‘The Raven’','q'],'c1.ti':['Poe at the Crossroads: New Essays','i'],'c1.co':'edited by Tom Avery','c1.pu':'Cypress Press','c1.da':'2019','c1.pg':'pp. 77-95'}),
+ tit3:mk({au:'Halvorsen, Ingrid',ti:['Sea and Self in _Moby-Dick_','i'],'c1.pu':'Atlantic Coast UP','c1.da':'2013'}),
+ intro:mk({au:'Simms, Ada',ti:['Introduction','r'],'c1.ti':['Collected Tales of the Red River','i'],'c1.co':'by Ruth Calloway','c1.pu':'Thicket Press','c1.da':'2017','c1.pg':'pp. ix-xxvi'}),
+ old:mk({au:'Wheelock, Amos',ti:['A Winter in the Texas Pine Lands','i'],'c1.pu':'New Orleans','c1.da':'1859'}),
+ song:mk({au:'Gray Owl Trio',ti:['Ferry Lights','q'],'c1.ti':['Night Market','i'],'c1.pu':'Juniper Records','c1.da':'2021','c2.ti':['Spotify','i'],'c2.lo':'open.spotify.com/track/7aHp2LmQ9cXv3RtK8sWj1d'}),
+ ep:mk({ti:['The Long Night','q'],'c1.ti':['Harbor Town','i'],'c1.nu':'season 1, episode 3','c1.pu':'Coastal Broadcasting','c1.da':'4 Mar. 2016','c2.ti':['Hulu','i'],'c2.lo':'www.hulu.com/watch/5c1e8a72'}),
+ yt:mk({ti:['The Lighthouse Keeper’s Daughter','i'],'c1.co':'directed by Margaret Lowe','c1.pu':'Coastal Photoplay Company','c1.da':'1921','c2.ti':['YouTube','i'],'c2.co':'uploaded by OldReelsVault','c2.da':'5 Aug. 2020','c2.lo':'www.youtube.com/watch?v=Kp3Rt8vNa2Q'})
+};
+function fullEntry(ex,ki,withOpt){const all=expandKey(ex.keys[ki||0]);
+  const n=k=>Object.keys(k).length;return all.reduce((a,b)=>withOpt?(n(b)>n(a)?b:a):(n(b)<n(a)?b:a))}
+function markedEntry(ex,ki,hi,withOpt,punctMode){
+  const e=fullEntry(ex,ki,withOpt),exp=template(ex,e);
+  return orderOf(e).map(p=>{
+    let segs=unitSegs(ex,p,e[p],exp[p].pu,!!exp[p].cap);
+    let h=segs.map((s,j)=>{let x=s.i?'<i>'+esc(s.t)+'</i>':esc(s.t);
+      if(punctMode&&exp[p].pu&&s.t===exp[p].pu&&j>=segs.length-2)x='<span class="pm">'+x+'</span>';return x}).join('');
+    const on=hi&&(p===hi||p.startsWith(hi+'.'));
+    return on?'<mark>'+h+'</mark>':h}).join(' ');
+}
+function exBlock(label,ex,ki,hi,withOpt,punctMode){return `<div class="gex"><div class="label">${esc(label)}</div><p class="gent">${markedEntry(ex,ki,hi,withOpt,punctMode)}</p></div>`}
+const RAIL=[['au','Author','.'],['ti','Title of source','.'],['c1.ti','Title of container',','],['c1.co','Other contributors',','],['c1.ve','Version',','],['c1.nu','Number',','],['c1.pu','Publisher',','],['c1.da','Publication date',','],['c1.lo','Location','.']];
+const GUIDE=[
+ {t:'How an entry is built',rail:null,body:()=>`
+  <p>Every works-cited entry in MLA style is built from the same nine <b>core elements</b>, always in the same order. You fill in the ones your source has and skip the ones it doesn’t. The punctuation shown after each element in the list on this page belongs to the template, not to the source.</p>
+  <p>MLA doesn’t copy how a source looks. It <b>normalizes</b> it. A title page in all capitals becomes normal title case. A journal that prints “Vol. XXIII” becomes vol. 23. A news site that capitalizes headlines like sentences gets title case anyway. The source tells you <i>what</i> goes in the entry; MLA decides <i>how</i> it is written.</p>
+  <p>Here is one entry taken apart. Tap any element in the list to read about it.</p>
+  <div class="anat">${(()=>{const ex=G.story,e=fullEntry(ex,0),exp=template(ex,e);return orderOf(e).map(p=>`<div><span class="label">${esc(NAME[p])}</span><span class="gent" style="padding:0;text-indent:0">${segsHTML(unitSegs(ex,p,e[p],exp[p].pu,!!exp[p].cap))}</span></div>`).join('')})()}</div>
+  ${exBlock('The finished entry',G.story,0,null)}
+  <p>Two works are nested here: the story is the <b>source</b>, and the anthology that holds it is the <b>container</b>. The first two elements describe the source; the next seven describe the container.</p>
+  <p class="sub">The examples in this guide are invented sources, different from the ones in the exercises.</p>`},
+ {t:'Author',rail:'au',body:()=>`
+  <p>Who is responsible for the work. Ends with a <b>period</b>.</p>
+  <h4>What goes here</h4>
+  ${exBlock('One author: last name, comma, the rest of the name',G.book,0,'au')}
+  ${exBlock('Two authors: invert only the first, then “and”',G.two,0,'au')}
+  ${exBlock('Three or more: the first author, then et al.',G.three,0,'au')}
+  ${exBlock('A band or group: not inverted',G.song,0,'au')}
+  ${exBlock('A director or other creator whose work is your focus, with a role label',G.filmd,0,'au')}
+  ${exBlock('No author: start with the title',G.film,0,'ti')}
+  <h4>Watch for</h4><ul>
+  <li>Drop “By,” job titles, and the all-capitals of a title page or byline.</li>
+  <li>Give the name as the work presents it. If the title page spells out a middle name, don’t shrink it to an initial.</li>
+  <li>“et al.” has no period after “et.” It is a whole Latin word.</li>
+  <li>An organization can be an author. If the organization is also the publisher, skip the author and start with the title.</li></ul>`},
+ {t:'Title of source',rail:'ti',body:()=>`
+  <p>The title of the thing you are citing. Ends with a <b>period</b>, which goes inside a closing quotation mark.</p>
+  <h4>What goes here</h4>
+  ${exBlock('A work that stands on its own (book, film): italics',G.book,0,'ti')}
+  ${exBlock('A work inside something larger (story, poem, article, web page, episode, song): quotation marks',G.story,0,'ti')}
+  ${exBlock('A web page',G.web,0,'ti')}
+  ${exBlock('A plain section label (Introduction, Preface, Foreword, Afterword): no italics, no quotation marks',G.intro,0,'ti')}
+  <h4>Titles inside titles</h4>
+  ${exBlock('A novel’s title inside a quoted title keeps its italics',G.tit1,0,'ti')}
+  ${exBlock('A quoted title inside a quoted title takes single quotation marks',G.tit2,0,'ti')}
+  ${exBlock('A normally italic title inside an italic title switches to roman',G.tit3,0,'ti')}
+  <h4>Watch for</h4><ul>
+  <li>Title case, whatever the source does: capitalize the first word and the principal words; leave articles, prepositions, and conjunctions lowercase in the middle.</li>
+  <li>Include the subtitle, joined with a colon, even if the title page uses a period or a line break.</li>
+  <li>Italics or quotation marks depend on what the work is, not on how the source printed its title.</li></ul>`},
+ {t:'Title of container',rail:'c1.ti',body:()=>`
+  <p>The larger whole that holds your source. Usually italicized. Followed by a <b>comma</b>, because what comes next describes the container.</p>
+  <h4>What goes here</h4>
+  ${exBlock('An anthology or collection',G.story,0,'c1.ti')}
+  ${exBlock('A journal',G.journal,0,'c1.ti')}
+  ${exBlock('A newspaper',G.news,0,'c1.ti')}
+  ${exBlock('A website',G.web,0,'c1.ti')}
+  ${exBlock('An album, for a song',G.song,0,'c1.ti')}
+  ${exBlock('A television series, for an episode',G.ep,0,'c1.ti')}
+  <h4>Watch for</h4><ul>
+  <li>A book you read whole, like a novel, has no container. Its title is the title of the source, and the entry goes straight to the publisher.</li>
+  <li>If you found the container inside something else, like a journal in JSTOR, that is a second container. See “Containers inside containers.”</li></ul>`},
+ {t:'Other contributors',rail:'c1.co',body:()=>`
+  <p>People besides the author whose role matters to your source: editors, translators, directors, performers. Each gets a <b>role phrase</b> before the name. Followed by a <b>comma</b>.</p>
+  <h4>What goes here</h4>
+  ${exBlock('The editor of an anthology',G.story,0,'c1.co')}
+  ${exBlock('A translator, after the title and the original date',G.trans,0,'c1.co',true)}
+  ${exBlock('A film’s director',G.film,0,'c1.co')}
+  ${exBlock('The author of the book an introduction belongs to',G.intro,0,'c1.co')}
+  <h4>Watch for</h4><ul>
+  <li>The role phrase is lowercase after a comma (edited by) and capitalized after a period (Translated by, Directed by).</li>
+  <li>Spell it out: edited by, translated by, directed by, adapted by, performance by. A role that won’t fit that pattern becomes a noun after the name: guest editor, Jane Smith.</li>
+  <li>Leave out contributors who don’t matter to how you use the source: the indexer, the cover designer.</li></ul>`},
+ {t:'Version',rail:'c1.ve',body:()=>`
+  <p>Which edition or version of the work you used. Followed by a <b>comma</b>.</p>
+  <h4>What goes here</h4>
+  ${exBlock('A numbered edition, abbreviated',G.two,0,'c1.ve')}
+  <p>Other versions look like <span class="gin">rev. ed.</span> or <span class="gin">Authorized King James Version</span>.</p>
+  <h4>Watch for</h4><ul>
+  <li>A new printing is not a new edition. “First printing” never goes in the entry.</li>
+  <li>Use the date of the edition you used, not the first edition.</li></ul>`},
+ {t:'Number',rail:'c1.nu',body:()=>`
+  <p>Where the source falls in a numbered sequence: a journal’s volume and issue, a multivolume work’s volume, a show’s season and episode. Followed by a <b>comma</b>.</p>
+  <h4>What goes here</h4>
+  ${exBlock('Volume and issue of a journal',G.journal,0,'c1.nu')}
+  ${exBlock('Printed as “Vol. XIV, No. IX”: written in arabic',G.roman,0,'c1.nu')}
+  ${exBlock('Season and episode of a television series',G.ep,0,'c1.nu')}
+  <p>One volume of a multivolume set takes <span class="gin">vol. 2</span>.</p>
+  <h4>Watch for</h4><ul>
+  <li>Lowercase, abbreviated labels: vol. and no. An “issue” is written as no.</li>
+  <li>Volume and issue numbers go in arabic numerals even when the journal prints roman.</li></ul>`},
+ {t:'Publisher',rail:'c1.pu',body:()=>`
+  <p>The organization that produced the work or made it available. Followed by a <b>comma</b>.</p>
+  <h4>What goes here</h4>
+  ${exBlock('A university press: University Press becomes UP',G.book,0,'c1.pu')}
+  ${exBlock('A press whose name puts University first: U of … P',G.three,0,'c1.pu')}
+  ${exBlock('A commercial press: business words like Inc. are dropped',G.two,0,'c1.pu')}
+  ${exBlock('A book published before 1900: the city stands in for the publisher',G.old,0,'c1.pu')}
+  <h4>When there is no publisher element</h4><ul>
+  <li>Journals, magazines, and newspapers.</li>
+  <li>A website whose name is the same as its publisher. The Pine Hollow Preservation League’s site is published by the Pine Hollow Preservation League, so it is named once:</li></ul>
+  ${exBlock('Website named for its publisher',G.self,0,'c1.ti')}
+  <ul><li>Platforms that make work available without publishing it, like YouTube or JSTOR.</li></ul>`},
+ {t:'Publication date',rail:'c1.da',body:()=>`
+  <p>When the source was published, as precisely as the source tells you. Followed by a <b>comma</b>, or a period if it is the last element.</p>
+  <h4>What goes here</h4>
+  ${exBlock('A book: the year',G.book,0,'c1.da')}
+  ${exBlock('A journal issue: the year (or season and year)',G.journal,0,'c1.da')}
+  ${exBlock('A web page or news story: day, month, year',G.news,0,'c1.da')}
+  ${exBlock('A short month is spelled out',G.self,0,'c1.da')}
+  <h4>Watch for</h4><ul>
+  <li>Day, then month, then year: 17 Apr. 2025, not April 17, 2025.</li>
+  <li>Months longer than four letters are abbreviated: Jan., Feb., Mar., Apr., Aug., Sept., Oct., Nov., Dec. May, June, and July are spelled out.</li>
+  <li>No parentheses around the date, and no “Copyright ©” or “Posted.”</li></ul>`},
+ {t:'Location',rail:'c1.lo',body:()=>`
+  <p>Where in the container a reader finds your source. The last element, so usually followed by a <b>period</b> that ends the entry.</p>
+  <h4>What goes here</h4>
+  ${exBlock('Pages in a print container: pp. and a range',G.journal,0,'c1.pg')}
+  ${exBlock('A DOI, written as a full link',G.doi,0,'c1.lo')}
+  ${exBlock('A URL, without https://',G.web,0,'c1.lo')}
+  ${exBlock('Front matter numbered in roman: kept roman',G.intro,0,'c1.pg')}
+  <p>For an object you saw in person, the location is the place: <span class="gin">Museum of Modern Art, New York</span>.</p>
+  <h4>Watch for</h4><ul>
+  <li>p. for one page, pp. for more than one.</li>
+  <li>When the second page number shares its leading digits with the first, give only the last two: pp. 211-34.</li>
+  <li>Prefer a DOI to a URL. A DOI keeps https://doi.org/; every other URL drops https://.</li>
+  <li>The entry ends with a period, even after a URL.</li></ul>`},
+ {t:'Containers inside containers',rail:'c2',body:()=>`
+  <p>Sometimes the container itself sits inside something larger: a journal you read in JSTOR, a film you watched on YouTube, an album you streamed, a series you watched on a streaming service. Finish the first container with a period, then start the template again for the second: its title, then whatever else applies, ending with the location.</p>
+  ${exBlock('A journal article found in a database',G.jstor,0,'c2')}
+  ${exBlock('A film watched on YouTube',G.yt,0,'c2')}
+  ${exBlock('A song streamed on Spotify: the album first, then the service',G.song,0,'c2')}
+  ${exBlock('A TV episode streamed on Hulu: the series and network first, then the service',G.ep,0,'c2')}
+  <h4>Watch for</h4><ul>
+  <li>Cite the film, not the video. An uploader’s label like “Lighthouse Keepers Daughter 1921 FULL MOVIE HD” is not the film’s title. The film’s own title, director, studio, and year come first; YouTube comes second.</li>
+  <li>The uploader is a contributor to the second container: uploaded by, then the account name exactly as it appears.</li>
+  <li>Don’t repeat the page range in the second container.</li></ul>`},
+ {t:'Optional elements',rail:'opt',body:()=>`
+  <p>A few elements go in when they help your reader, at your discretion or your instructor’s.</p>
+  ${exBlock('Original publication date, right after the title',G.trans,0,'od',true)}
+  ${exBlock('Date of access, at the very end, for an online source',G.web,0,'ac',true)}
+  <p>A third is the city of publication, which is used only for books published before 1900, where it replaces the publisher.</p>`},
+ {t:'Periods, commas, and capitals',rail:'punct',body:()=>`
+  <p>The marks between elements are the template’s, not the source’s. The rules are short:</p><ul>
+  <li>A <b>period</b> after the author, after the title of the source, and at the end of each container.</li>
+  <li>A <b>comma</b> between elements inside a container.</li>
+  <li>Never double a period. After “et al.” or “2nd ed.” the abbreviation’s period does the job.</li>
+  <li>A title that ends in a question mark or exclamation point keeps it, and no period is added.</li>
+  <li>Periods and commas go <b>inside</b> closing quotation marks.</li>
+  <li>An element that follows a period starts with a capital. That is why it’s “Translated by” after a title but “edited by” after a container title.</li></ul>
+  ${exBlock('The marks in one entry',G.story,0,null,false,true)}
+  ${exBlock('Two containers: each one closes with a period',G.jstor,0,null,false,true)}`},
+ {t:'The Works Cited page',rail:'page',body:()=>`
+  <p>The entries go on their own page at the end of the paper.</p><ul>
+  <li>Title the page <b>Works Cited</b>, centered, with no bold, italics, underlining, or quotation marks.</li>
+  <li>Double-space everything, with no extra blank lines between entries.</li>
+  <li>Use a hanging indent: each entry starts at the left margin, and its later lines are indented half an inch.</li>
+  <li>Alphabetize by the first word of each entry, skipping A, An, and The. <i>The Widow’s Lantern</i> goes under W.</li>
+  <li>The page keeps the paper’s one-inch margins and the running header with your last name and the page number, top right.</li></ul>
+  <p>That’s the whole template. The exercises start with a plain book and work up to all of this.</p>
+  <div class="actions"><button class="btn" data-go="0">Start practicing</button></div>`}
+];
+function guideHTML(){
+  const i=S.gstep||0,g=GUIDE[i];
+  const active=g.rail;
+  const rail=`<nav class="grail" aria-label="Core elements"><ul><li><button data-gs="0" aria-current="${i===0}"><span>How an entry is built</span></button></li></ul><ol>${RAIL.map(([p,n,m])=>{const k=GUIDE.findIndex(x=>x.rail===p);
+      return `<li><button data-gs="${k}" aria-current="${active===p}"><span>${n}</span><em>${m}</em></button></li>`}).join('')}</ol>
+    <ul>${GUIDE.map((x,k)=>x.rail&&!RAIL.some(r=>r[0]===x.rail)?`<li><button data-gs="${k}" aria-current="${k===i}"><span>${x.t}</span></button></li>`:'').join('')}</ul></nav>`;
+  return `<div class="guide">${rail}<article class="gcard"><span class="label">Guide · ${i+1} of ${GUIDE.length}</span><h2>${esc(g.t)}</h2>${g.body()}
+   <div class="gnav"><button class="btn ghost" data-gs="${i-1}" ${i===0?'disabled':''}>Back</button>${i<GUIDE.length-1?`<button class="btn" data-gs="${i+1}">Next: ${esc(GUIDE[i+1].t)}</button>`:''}</div></article></div>`;
+}
+
 function render(){
-  $('#vBench').setAttribute('aria-pressed',S.view==='bench');$('#vSlip').setAttribute('aria-pressed',S.view==='slip');
-  $('#app').innerHTML=S.view==='bench'?(EX[S.ex].kind==='page'?pageHTML():benchHTML()):S.view==='slip'?slipHTML():S.view==='verify'?verifyHTML():keysHTML();
+  $('#vGuide').setAttribute('aria-pressed',S.view==='guide');$('#vBench').setAttribute('aria-pressed',S.view==='bench');$('#vSlip').setAttribute('aria-pressed',S.view==='slip');
+  $('#app').innerHTML=S.view==='guide'?guideHTML():S.view==='bench'?(EX[S.ex].kind==='page'?pageHTML():benchHTML()):S.view==='slip'?slipHTML():S.view==='verify'?verifyHTML():keysHTML();
   renderHand();
 }
 
@@ -834,6 +1103,8 @@ document.addEventListener('click',ev=>{
   const t=ev.target.closest('button,[data-s]');if(!t)return;
   const ex=EX[S.ex],entry=S.entries[S.ex];
   if(t.id==='vBench'){S.view='bench';S.hand=null;return render()}
+  if(t.id==='vGuide'){S.view='guide';S.hand=null;return render()}
+  if(t.dataset.gs!=null){S.gstep=Math.max(0,Math.min(GUIDE.length-1,+t.dataset.gs));render();window.scrollTo({top:0});return}
   if(t.id==='vSlip'){S.view='slip';S.hand=null;return render()}
   if(t.id==='copySlip'){const txt=S.name&&S.name.trim()?slipLine(S.name):'';const msg=$('#copyMsg');
     if(!txt){msg.textContent='Type your name first.';return}
@@ -874,6 +1145,7 @@ document.addEventListener('keydown',ev=>{const t=ev.target;if(t.dataset&&t.datas
 document.addEventListener('input',ev=>{if(ev.target.id==='stuName'){S.name=ev.target.value;store.set({done:[...S.done],name:S.name});const el=$('#slipText');if(el)el.innerHTML=S.name.trim()?esc(slipLine(S.name)):'<span class="empty">Type your name to make your slip.</span>'}});
 window.addEventListener('hashchange',()=>{route();render()});
 S.name=store.get().name||'';
+S.gstep=0;if(!S.done.size)S.view='guide';
 if(typeof document!=='undefined'&&document.getElementById('app')){route();render()}
 </script>
 

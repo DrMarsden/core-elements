@@ -10,11 +10,13 @@ Or download `index.html` from this repository and open it in any current browser
 
 ## What it does
 
+- **Walks through the template first.** A guide takes students through the nine core elements one at a time: what each element is, the kinds of things that go in it, the punctuation that follows it, and the usual mistakes, with highlighted examples from a set of invented sources kept separate from the exercises. It also covers containers inside containers, optional elements, periods and commas, and the Works Cited page.
 - **Works from the source.** Tap a piece of the facsimile, then the element it belongs in. Some pieces belong nowhere (a city of publication after 1900, a printing line, a cover designer), and the tool says why.
 - **Asks for MLA's form, not the source's.** For each piece the student chooses among forms of it: the source's own capitals, the name uninverted, the publisher unabbreviated, and the correct one. MLA normalizes a source rather than recording it, and this is where most mistakes happen.
+- **Leaves the punctuation to the student.** After each element the student chooses a period, a comma, or nothing, and whether the element starts with a capital. The check applies MLA's rules: periods after the author, the title, and each container; commas inside a container; no doubled periods; capitals after a period.
 - **Proofreads the entry.** A check stamps the entry correct or marks each fault with a short note, and can collate the student's entry against the key, showing what to cut and what to add.
 - **Sets the works-cited page.** A final exercise takes six finished entries set badly and asks for the page itself: the heading, double spacing, hanging indent, alphabetical order, and the running header.
-- **Issues a completion slip** with the student's name, score and date, to hand in.
+- **Issues a completion slip** with the student's name, score and date, to paste into a course site. An exercise counts once it is right, however many tries it takes. An instructor's view checks pasted slips in bulk.
 
 ## The exercises
 
@@ -37,7 +39,9 @@ Or download `index.html` from this repository and open it in any current browser
 17. A film watched on YouTube
 18. Roman numerals on an old journal
 19. An introduction numbered in roman
-20. The Works Cited page
+20. A song on a streaming service
+21. A TV episode on a streaming service
+22. The Works Cited page
 
 Every source is invented for practice. The answer keys follow the Purdue OWL and the MLA Style Center, and nothing else. Where MLA allows more than one form, the tool accepts each, and the key notes which choice was made.
 
